@@ -81,7 +81,7 @@ for acc in gmail_accounts:
             print("aaa: ", aaa)
             imap.store(msg_id, '+FLAGS', '\\Deleted')
         else:
-            To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
+            To = str(mm.group()).replace("Final-Recipient: rfc822; ", "")
             insert_email_to_supabase(To)
             imap.store(msg_id, '+FLAGS', '\\Deleted')
     imap.expunge()
