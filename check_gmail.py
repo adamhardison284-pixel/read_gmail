@@ -34,7 +34,7 @@ for acc in gmail_accounts:
     #EMAIL_ACCOUNT = "haitam.naji1994@gmail.com"
     #EMAIL_PASSWORD = "rrbugrioamvknwkf"  # 16-char app password
     EMAIL_ACCOUNT = acc[0]
-    EMAIL_PASSWORD = acc[0].replace(" ","")
+    EMAIL_PASSWORD = acc[1].replace(" ","")
     
     # === CONNECT ===
     imap = imaplib.IMAP4_SSL(IMAP_SERVER)
