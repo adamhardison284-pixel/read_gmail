@@ -67,7 +67,7 @@ for acc in gmail_accounts:
         exit()
     
     msg_ids = data[0].split()
-    print(f"Found {len(msg_ids)} possible bounces.")
+    print(f"Found {len(msg_ids)} possible bounces to {acc[0]}.")
     
     rows = []
     for msg_id in msg_ids:
@@ -87,5 +87,4 @@ for acc in gmail_accounts:
             mail.store(msgid, '+FLAGS', '\\Deleted')
     mail.expunge()
     imap.logout()
-    print(f"[✓] Saved {len(rows)} bounce messages to {acc[0]}")
 
