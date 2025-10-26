@@ -14,7 +14,6 @@ def insert_email_to_supabase(p_email):
         "insert_bounced_email_github",
         {"p_email": p_email}
     ).execute()
-    print("Inserted:", result.data)
 
 """
 python gmail_collect.py
