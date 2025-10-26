@@ -2,6 +2,7 @@ import imaplib
 import email
 import re
 import csv
+import os
 from supabase import create_client, Client
 
 url: str = os.environ.get("SUPABASE_URL")
