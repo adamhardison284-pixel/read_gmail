@@ -2,7 +2,7 @@ name: Gmail IMAP Reader
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # every 30 minutes
+    - cron: '*/60 * * * *' # every 30 minutes
   workflow_dispatch: {}    # allow manual trigger
 
 jobs:
