@@ -17,7 +17,7 @@ gmail_accounts = [
     ["onelifestunning@gmail.com","oigw szwx uami gofg"],
     ["stevewatauga@gmail.com","ouqj thgm ufgc qntz"],
     ["walidfahmi100@gmail.com","lejd lalw hyxc vnkh"],
-    ["fleischmannflorentin@gmail.com","tbhc oiwb plzt o...
+    ["fleischmannflorentin@gmail.com","tbhc oiwb plzt oebb"],	
     ["hoflereiner628@gmail.com","duny kuhn uale bnzo"],
     ["jemmywatford769@gmail.com","wqdh kcfg knkp saax"],
     ["johnlrape@gmail.com","fpsq leox ixov lsuq"],
