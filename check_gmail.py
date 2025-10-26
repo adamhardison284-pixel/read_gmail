@@ -2,6 +2,19 @@ import imaplib
 import email
 import re
 import csv
+import requests
+from supabase import create_client, Client
+
+url: str = os.environ.get("SUPABASE_URL")
+key: str = os.environ.get("SUPABASE_KEY")
+supabase: Client = create_client(url, key)
+
+def insert_email_to_supabase(p_email):
+    result = supabase.rpc(
+        "insert_bounced_email_github",
+        {"p_email": p_email}
+    ).execute()
+    print("Inserted:", result.data)
 
 """
 python gmail_collect.py
@@ -66,45 +79,9 @@ for acc in gmail_accounts:
         if aa:
             aaa = str(aa.group())
             print("aaa: ", aaa)
-        To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
-        print(To)
-        subject = msg.get("Subject", "")
-        date = msg.get("Date", "")
-        from_addr = msg.get("From", "")
-    
-        failed = ""
-        """
-        # Parse message parts to find failed recipient
-        for part in msg.walk():
-            if part.get_content_type() == "message/delivery-status":
-                try:
-                    text = part.get_payload(decode=True).decode("utf-8", errors="ignore")
-                    m = re.search(r"Final-Recipient:\s*[^;]+;\s*([^\s]+)", text, re.I)
-                    if m:
-                        failed = m.group(1)
-                except:
-                    pass
-    
-            elif part.get_content_type() == "text/plain" and not failed:
-                body = part.get_payload(decode=True).decode("utf-8", errors="ignore")
-                m = re.search(r"Recipient:\s*([^\s]+@[^\s]+)", body)
-                if m:
-                    failed = m.group(1)
-    
-        rows.append({
-            "to": To,
-            "date": date,
-            "from": from_addr,
-            "subject": subject,
-            "failed_recipient": failed
-        })
-        """
-    """
-    # Save to CSV
-    with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["to", "date", "from", "subject", "failed_recipient"])
-        writer.writeheader()
-        writer.writerows(rows)
-    """
+        else:
+            To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
+            insert_email_to_supabase(To)
     imap.logout()
     print(f"[✓] Saved {len(rows)} bounce messages to {acc[0]}")
+
