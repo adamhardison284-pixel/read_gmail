@@ -79,11 +79,11 @@ for acc in gmail_accounts:
         if aa or bb:
             aaa = str(aa.group())
             print("aaa: ", aaa)
-            mail.store(msgid, '+FLAGS', '\\Deleted')
+            imap.store(msgid, '+FLAGS', '\\Deleted')
         else:
             To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
             insert_email_to_supabase(To)
-            mail.store(msgid, '+FLAGS', '\\Deleted')
+            imap.store(msgid, '+FLAGS', '\\Deleted')
     imap.expunge()
     imap.logout()
 
