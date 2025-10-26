@@ -1,12 +1,12 @@
-name: Gmail IMAP Reader
+name: Gmail IMAP + Supabase
 
 on:
   schedule:
-    - cron: '*/60 * * * *' # every 30 minutes
-  workflow_dispatch: {}    # allow manual trigger
+    - cron: '*/60 * * * *' # every 60 minutes
+  workflow_dispatch: {}
 
 jobs:
-  read-gmail:
+  imap-job:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,8 +15,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run IMAP script
+      - name: Install dependencies
+        run: pip install supabase
+
+      - name: Run Gmail IMAP script
         env:
           IMAP_USER: ${{ secrets.IMAP_USER }}
           IMAP_PASS: ${{ secrets.IMAP_PASS }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: python check_gmail.py
