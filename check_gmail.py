@@ -76,7 +76,8 @@ for acc in gmail_accounts:
         msg = email.message_from_bytes(raw_email)
         mm = re.search(r"Final-Recipient:\s*[^;]+;\s*([^\s]+)", str(msg), re.I)
         aa = re.search(r"Message blocked", str(msg), re.I)
-        if aa:
+        bb = re.search(r"Message bloqué", str(msg), re.I)
+        if aa or bb:
             aaa = str(aa.group())
             print("aaa: ", aaa)
         else:
