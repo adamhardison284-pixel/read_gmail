@@ -85,6 +85,7 @@ for acc in gmail_accounts:
             To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
             insert_email_to_supabase(To)
             mail.store(msgid, '+FLAGS', '\\Deleted')
+    mail.expunge()
     imap.logout()
     print(f"[✓] Saved {len(rows)} bounce messages to {acc[0]}")
 
