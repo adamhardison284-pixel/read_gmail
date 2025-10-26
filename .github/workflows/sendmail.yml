@@ -1,0 +1,20 @@
+name: Send Gmail via SMTP
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  send-gmail:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Send email via Gmail SMTP
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        run: python send_gmail.py
