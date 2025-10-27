@@ -1,5 +1,10 @@
+name: Send Gmail via SMTP
+
+on:
+  workflow_dispatch: {}
+
 jobs:
-  imap-job:
+  send-gmail:
     runs-on: ubuntu-latest
 
     steps:
@@ -8,13 +13,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: pip install supabase
-
-      - name: Run Gmail IMAP script
+      - name: Send email via Gmail SMTP
         env:
-          IMAP_USER: ${{ secrets.IMAP_USER }}
-          IMAP_PASS: ${{ secrets.IMAP_PASS }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: python send_gmail.py
