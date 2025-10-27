@@ -70,6 +70,8 @@ for smtp in smtps:
 		diff_minutes = (now - last_time_send).total_seconds() / 60
 		time_between_emails = 24*60 / smtp['max_send']
 		if diff_minutes >= time_between_emails:
+			msg = msg.replace('[em]', receiver_email)
+			msg = msg.replace('[of_id]', of_id)
 			"""
 			response_1 = supabase.rpc(
 				"get_one_email_and_insert",
