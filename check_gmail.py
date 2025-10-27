@@ -27,42 +27,45 @@ for smtp in smtps:
     EMAIL_ACCOUNT = smtp['username']
     EMAIL_PASSWORD = smtp['pass'].replace(" ","")
     
-    # === CONNECT ===
-    imap = imaplib.IMAP4_SSL(IMAP_SERVER)
-    imap.login(EMAIL_ACCOUNT, EMAIL_PASSWORD)
-    
-    # Search both inbox and spam if needed
-    imap.select("INBOX")
-    
-    # Search common bounce indicators
-    # mailer-daemon, postmaster, or common bounce subjects
-    search_criterias = '(FROM "Mail Delivery Subsystem")'
-    
-    result, data = imap.search(None, search_criterias)
-    if result != "OK":
-        print("No messages found.")
+    try:
+        # === CONNECT ===
+        imap = imaplib.IMAP4_SSL(IMAP_SERVER)
+        imap.login(EMAIL_ACCOUNT, EMAIL_PASSWORD)
+        
+        # Search both inbox and spam if needed
+        imap.select("INBOX")
+        
+        # Search common bounce indicators
+        # mailer-daemon, postmaster, or common bounce subjects
+        search_criterias = '(FROM "Mail Delivery Subsystem")'
+        
+        result, data = imap.search(None, search_criterias)
+        if result != "OK":
+            print("No messages found.")
+            imap.logout()
+            exit()
+        
+        msg_ids = data[0].split()
+        print(f"Found {len(msg_ids)} possible bounces to {EMAIL_ACCOUNT}.")
+        
+        rows = []
+        for msg_id in msg_ids:
+            result, msg_data = imap.fetch(msg_id, "(RFC822)")
+            raw_email = msg_data[0][1]
+            msg = email.message_from_bytes(raw_email)
+            mm = re.search(r"Final-Recipient:\s*[^;]+;\s*([^\s]+)", str(msg), re.I)
+            aa = re.search(r"Message blocked", str(msg), re.I)
+            bb = re.search(r"Message bloqué", str(msg), re.I)
+            if aa or bb:
+                aaa = str(aa.group())
+                print("aaa: ", aaa)
+                imap.store(msg_id, '+FLAGS', '\\Deleted')
+            else:
+                To = str(mm.group()).replace("Final-Recipient: rfc822; ", "")
+                insert_email_to_supabase(To)
+                imap.store(msg_id, '+FLAGS', '\\Deleted')
+        imap.expunge()
         imap.logout()
-        exit()
-    
-    msg_ids = data[0].split()
-    print(f"Found {len(msg_ids)} possible bounces to {EMAIL_ACCOUNT}.")
-    
-    rows = []
-    for msg_id in msg_ids:
-        result, msg_data = imap.fetch(msg_id, "(RFC822)")
-        raw_email = msg_data[0][1]
-        msg = email.message_from_bytes(raw_email)
-        mm = re.search(r"Final-Recipient:\s*[^;]+;\s*([^\s]+)", str(msg), re.I)
-        aa = re.search(r"Message blocked", str(msg), re.I)
-        bb = re.search(r"Message bloqué", str(msg), re.I)
-        if aa or bb:
-            aaa = str(aa.group())
-            print("aaa: ", aaa)
-            imap.store(msg_id, '+FLAGS', '\\Deleted')
-        else:
-            To = str(mm.group()).replace("Final-Recipient: rfc822; ", "")
-            insert_email_to_supabase(To)
-            imap.store(msg_id, '+FLAGS', '\\Deleted')
-    imap.expunge()
-    imap.logout()
+    except:
+        pass
 
