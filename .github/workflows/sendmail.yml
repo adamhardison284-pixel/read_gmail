@@ -1,20 +1,38 @@
-name: Send Gmail via SMTP
+name: Send Gmail Script
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:       # allows manual run
+  schedule:
+    - cron: "0 */6 * * *"  # optional: runs every 6 hours
 
 jobs:
   send-gmail:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Send email via Gmail SMTP
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install supabase smtplib email-validator zoneinfo
+
+      - name: Run send_gmail.py
         env:
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: python send_gmail.py
