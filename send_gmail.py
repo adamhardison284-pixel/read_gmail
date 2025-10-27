@@ -17,7 +17,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html):
     msg.attach(MIMEText(html, "html"))
     
     # --- Send the email ---
-    with smtplib.SMTP_SSL("smtp.gmail.com", 587) as server:
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, msg.as_string())
 		
