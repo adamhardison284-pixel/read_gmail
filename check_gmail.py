@@ -8,6 +8,8 @@ from supabase import create_client, Client
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
+response = supabase.table("gmail_smtps").select("*").execute()
+smtps = response.data
 
 def insert_email_to_supabase(p_email):
     result = supabase.rpc(
@@ -18,35 +20,12 @@ def insert_email_to_supabase(p_email):
 """
 python gmail_collect.py
 """
-gmail_accounts = [
-    ["haitam.naji1994@gmail.com","rrbu grio amvk nwkf"],
-    ["laurawinskey@gmail.com","koergusxgtrupirm"],
-    ["ennajikarim707@gmail.com","ygnf ujtq wjdq mpmw"],
-    ["axelklengel9@gmail.com","qoiq erot tnob kcld"],
-    ["axelklengel@gmail.com","ydzd lkts ofpg zjbv"],
-    ["klatifa820@gmail.com","plkn ccef sbio lill"],
-    ["edwardtlaurel113@gmail.com","qykm rdpp jxgc cwdu"],
-    ["onelifestunning@gmail.com","oigw szwx uami gofg"],
-    ["stevewatauga@gmail.com","ouqj thgm ufgc qntz"],
-    ["walidfahmi100@gmail.com","lejd lalw hyxc vnkh"],
-    ["fleischmannflorentin@gmail.com","tbhc oiwb plzt oebb"],	
-    ["hoflereiner628@gmail.com","duny kuhn uale bnzo"],
-    ["jemmywatford769@gmail.com","wqdh kcfg knkp saax"],
-    ["johnlrape@gmail.com","fpsq leox ixov lsuq"],
-    ["magnuskringel@gmail.com","wjbu qvfo xvva axti"],
-    ["ottoschaeffer82@gmail.com","oimu thfv ldpk ywqr"],
-    ["ralfcurschmann@gmail.com","kddi tcow mhrn rwri"],
-    ["willyhardison89@gmail.com","tkgw zhdr mjkr baip"],
-    ["wilsonleonardo355@gmail.com","mqfl kynw cyzi ggwy"],
-    ["adamhardison284@gmail.com","gpum xjlm atlb stjg"]
-]
+
 # === CONFIG ===
-for acc in gmail_accounts:
+for smtp in smtps:
     IMAP_SERVER = "imap.gmail.com"
-    #EMAIL_ACCOUNT = "haitam.naji1994@gmail.com"
-    #EMAIL_PASSWORD = "rrbugrioamvknwkf"  # 16-char app password
-    EMAIL_ACCOUNT = acc[0]
-    EMAIL_PASSWORD = acc[1].replace(" ","")
+    EMAIL_ACCOUNT = smtp['username']
+    EMAIL_PASSWORD = smtp['pass'].replace(" ","")
     
     # === CONNECT ===
     imap = imaplib.IMAP4_SSL(IMAP_SERVER)
