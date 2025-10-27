@@ -42,33 +42,29 @@ msg = """
 	<strong>Dein Rewards-Team</strong></p>
 """
 for smtp in smtps:
-    if smtp['ready'] == True:
+	if smtp['ready'] == True:
 		receiver_email = "zhoridlono@web.de"
-        previous_str = smtp['last_time']
+		previous_str = smtp['last_time']
 		sender_email = smtp['username']
 		password = smtp['pass']
-        # Parse the string into a datetime object (includes UTC offset)
-        last_time_send = datetime.fromisoformat(previous_str)
-        # Current UTC time
-        now = datetime.now(timezone.utc)
-        # Difference in minutes
-        diff_minutes = (now - last_time_send).total_seconds() / 60
-        time_between_emails = 24*60 / smtp['max_send']
-        if diff_minutes >= time_between_emails:
+		# Parse the string into a datetime object (includes UTC offset)
+		last_time_send = datetime.fromisoformat(previous_str)
+		# Current UTC time
+		now = datetime.now(timezone.utc)
+		# Difference in minutes
+		diff_minutes = (now - last_time_send).total_seconds() / 60
+		time_between_emails = 24*60 / smtp['max_send']
+		if diff_minutes >= time_between_emails:
 			"""
-            response_1 = supabase.rpc(
-                "get_one_email_and_insert",
-                {"p_table": table_name, "p_offer_id": of_id}
-            ).execute()
-            response_1
+			response_1 = supabase.rpc(
+				"get_one_email_and_insert",
+				{"p_table": table_name, "p_offer_id": of_id}
+			).execute()
+			response_1
 			"""
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg)
 		break;
-            
-    
-    
-     
-    
+
 def send_email(subject, sender_email, password, receiver_email, text, html):
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
