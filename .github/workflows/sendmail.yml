@@ -3,7 +3,7 @@ name: Send Gmail Script
 on:
   workflow_dispatch:       # allows manual run
   schedule:
-    - cron: "*/2 * * * *"  # optional: runs every 2 minutes
+    - cron: "8 * * 6 *"  # optional: runs every 2 minutes
 
 jobs:
   send-gmail:
