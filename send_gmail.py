@@ -77,8 +77,8 @@ for smtp in smtps:
 				"get_one_email_and_insert",
 				{"p_table": table_name, "p_offer_id": of_id}
 			).execute()
-			print('response_1.data: ', response_1.data)
-			receiver_email = response_1.data[0].email
+			print('response_1.data: ', response_1.data[0]['email'])
+			receiver_email = response_1.data[0]['email']
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id)
