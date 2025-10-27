@@ -73,6 +73,8 @@ for smtp in smtps:
 		diff_minutes = (now - last_time_send).total_seconds() / 60
 		time_between_emails = 24*60 / smtp['max_send']
 		if diff_minutes >= time_between_emails:
+			nb_send = smtp.nb_send + 1
+			response_data_3 = supabase.table('gmail_smtps').update({"last_time":now, "nb_send": nb_send}).eq("id", smtp.id).execute()
 			response_1 = supabase.rpc(
 				"get_one_email_and_insert",
 				{"p_table": table_name, "p_offer_id": of_id}
