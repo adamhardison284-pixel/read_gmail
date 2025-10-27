@@ -25,10 +25,10 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		offer_id = int(offer_id)
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
 		response_data_ = supabase.table('gmail_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
-		
-url_ = "https://vptrmftnkfewhscirhqe.supabase.co"
-key = "sb_secret_xw2d9ghzJh0MezkSGTCeOw_C1_4FXKj"
-supabase: Client = create_client(url_, key)
+
+url: str = os.environ.get("SUPABASE_URL")
+key: str = os.environ.get("SUPABASE_KEY")
+supabase: Client = create_client(url, key)	
 
 response = supabase.table("gmail_smtps").select("*").execute()
 smtps = response.data
