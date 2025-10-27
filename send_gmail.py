@@ -6,7 +6,7 @@ from supabase import create_client, Client
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-def send_email(subject, sender_email, password, receiver_email, text, html, offer_id):
+def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id):
 	try:
 	    msg = MIMEMultipart("alternative")
 	    msg["Subject"] = subject
@@ -24,6 +24,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 	except:
 		offer_id = int(offer_id)
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
+		response_data_ = supabase.table('gmail_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
 		
 url_ = "https://vptrmftnkfewhscirhqe.supabase.co"
 key = "sb_secret_xw2d9ghzJh0MezkSGTCeOw_C1_4FXKj"
@@ -85,6 +86,6 @@ for smtp in smtps:
 			receiver_email = response_1.data[0]['email']
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
-			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id)
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'])
 		break;
 
