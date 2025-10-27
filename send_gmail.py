@@ -17,8 +17,7 @@ subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
 table_name = "web_de"
 of_id = 6;
 txt_msg = ""
-msg = 
-"""
+msg = """
     <p>Hallo,</p>
 	<p><span zeum4c2="PR_1_0" data-ddnwab="PR_1_0" aria-invalid="grammar" class="Lm ng">wir</span> haben etwas ganz Besonderes nur für dich! <img data-emoji="🎉" class="an1" alt="🎉" aria-label="🎉" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/16.0/1f389/32.png" loading="lazy"></p>
 	<p>Für kurze Zeit verschenken wir <strong>exklusive Produkte</strong> – völlig kostenlos. Wähle einfach deine Favoriten aus und wir kümmern uns um den Rest. Egal ob <strong>stilvolle Uhren</strong>, <strong>moderne Wohn- &amp; Dekoartikel</strong>, <strong>praktische Küchenhelfer</strong>, <strong>trendige <span zeum4c2="PR_2_0" data-ddnwab="PR_2_0" aria-invalid="spelling" class="LI ng">Herrenaccessoires</span></strong> oder <strong>bequeme Schuhe</strong> – hier ist für jeden etwas dabei.</p>
