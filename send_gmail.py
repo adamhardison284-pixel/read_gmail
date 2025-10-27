@@ -9,9 +9,10 @@ from zoneinfo import ZoneInfo
 response = supabase.table("gmail_smtps").select("*").execute()
 smtps = response.data
 
-subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!";
-table_name = "web_de";
+subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
+table_name = "web_de"
 of_id = 6;
+txt_msg = ""
 msg = 
 """
     <p>Hallo,</p>
@@ -38,8 +39,11 @@ msg =
 	<strong>Dein Rewards-Team</strong></p>
 """
 for smtp in smtps:
-    if smtp['last_time'] == True:
+    if smtp['ready'] == True:
+		receiver_email = "zhoridlono@web.de"
         previous_str = smtp['last_time']
+		sender_email = smtp['username']
+		password = smtp['pass']
         # Parse the string into a datetime object (includes UTC offset)
         last_time_send = datetime.fromisoformat(previous_str)
         # Current UTC time
@@ -48,17 +52,21 @@ for smtp in smtps:
         diff_minutes = (now - last_time_send).total_seconds() / 60
         time_between_emails = 24*60 / smtp['max_send']
         if diff_minutes >= time_between_emails:
+			"""
             response_1 = supabase.rpc(
                 "get_one_email_and_insert",
                 {"p_table": table_name, "p_offer_id": of_id}
             ).execute()
             response_1
+			"""
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg)
+		break;
             
     
     
      
     
-def send_email(to_email, subject, sender_email, receiver_email, text, html):
+def send_email(subject, sender_email, password, receiver_email, text, html):
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
     msg["From"] = sender_email
@@ -72,6 +80,3 @@ def send_email(to_email, subject, sender_email, receiver_email, text, html):
     with smtplib.SMTP_SSL("smtp.gmail.com", 587) as server:
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, msg.as_string())
-
-if __name__ == "__main__":
-    send_email("zhoridlono@web.de", "Hello from GitHub", "This email was sent using Gmail SMTP + GitHub Actions!")
