@@ -6,6 +6,10 @@ from supabase import create_client, Client
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+url_ = "https://vptrmftnkfewhscirhqe.supabase.co"
+key = "sb_secret_xw2d9ghzJh0MezkSGTCeOw_C1_4FXKj"
+supabase: Client = create_client(url_, key)
+
 response = supabase.table("gmail_smtps").select("*").execute()
 smtps = response.data
 
