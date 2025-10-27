@@ -12,6 +12,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          
+      - name: Install dependencies
+        run: pip install supabase
 
       - name: Send email via Gmail SMTP
         run: python send_gmail.py
