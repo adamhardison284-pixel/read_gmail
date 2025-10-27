@@ -18,10 +18,6 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 	    msg.attach(MIMEText(html, "html"))
 	    
 	    # --- Send the email ---
-		"""
-		with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-		server.login(sender_email, password)
-		"""
 		with smtplib.SMTP(smtp_host, 587) as server:
 			server.starttls()
 			server.login(sender_email, password)
