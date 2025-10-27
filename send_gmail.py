@@ -6,7 +6,7 @@ from supabase import create_client, Client
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id):
+def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host):
 	try:
 	    msg = MIMEMultipart("alternative")
 	    msg["Subject"] = subject
@@ -18,8 +18,13 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 	    msg.attach(MIMEText(html, "html"))
 	    
 	    # --- Send the email ---
+		"""
 	    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
 	        server.login(sender_email, password)
+		"""
+		with smtplib.SMTP(smtp_host, 587) as server:
+			server.starttls()
+			server.login(sender_email, password)
 	        server.sendmail(sender_email, receiver_email, msg.as_string())
 	except:
 		offer_id = int(offer_id)
@@ -86,6 +91,6 @@ for smtp in smtps:
 			receiver_email = response_1.data[0]['email']
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
-			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'])
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
 		
 
