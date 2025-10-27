@@ -25,4 +25,4 @@ jobs:
           IMAP_PASS: ${{ secrets.IMAP_PASS }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: python check_gmail.py
+        run: python send_gmail.py
