@@ -19,13 +19,13 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 	    
 	    # --- Send the email ---
 		"""
-	    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-	        server.login(sender_email, password)
+		with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+		server.login(sender_email, password)
 		"""
 		with smtplib.SMTP(smtp_host, 587) as server:
 			server.starttls()
 			server.login(sender_email, password)
-	        server.sendmail(sender_email, receiver_email, msg.as_string())
+			server.sendmail(sender_email, receiver_email, msg.as_string())
 	except:
 		offer_id = int(offer_id)
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
