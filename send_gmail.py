@@ -6,20 +6,23 @@ from supabase import create_client, Client
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-def send_email(subject, sender_email, password, receiver_email, text, html):
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"] = sender_email
-    msg["To"] = receiver_email
-
-    # Attach both versions
-    msg.attach(MIMEText(text, "plain"))
-    msg.attach(MIMEText(html, "html"))
-    
-    # --- Send the email ---
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, msg.as_string())
+def send_email(subject, sender_email, password, receiver_email, text, html, offer_id):
+	try:
+	    msg = MIMEMultipart("alternative")
+	    msg["Subject"] = subject
+	    msg["From"] = sender_email
+	    msg["To"] = receiver_email
+	
+	    # Attach both versions
+	    msg.attach(MIMEText(text, "plain"))
+	    msg.attach(MIMEText(html, "html"))
+	    
+	    # --- Send the email ---
+	    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+	        server.login(sender_email, password)
+	        server.sendmail(sender_email, receiver_email, msg.as_string())
+	except:
+		pass
 		
 url_ = "https://vptrmftnkfewhscirhqe.supabase.co"
 key = "sb_secret_xw2d9ghzJh0MezkSGTCeOw_C1_4FXKj"
@@ -58,7 +61,7 @@ msg = """
 """
 for smtp in smtps:
 	if smtp['ready'] == True:
-		receiver_email = "zhoridlono@web.de"
+		#receiver_email = "zhoridlono@web.de"
 		previous_str = smtp['last_time']
 		sender_email = smtp['username']
 		password = smtp['pass']
@@ -70,15 +73,13 @@ for smtp in smtps:
 		diff_minutes = (now - last_time_send).total_seconds() / 60
 		time_between_emails = 24*60 / smtp['max_send']
 		if diff_minutes >= time_between_emails:
-			msg = msg.replace('[em]', receiver_email)
-			msg = msg.replace('[of_id]', of_id)
-			"""
 			response_1 = supabase.rpc(
 				"get_one_email_and_insert",
 				{"p_table": table_name, "p_offer_id": of_id}
 			).execute()
-			response_1
-			"""
-			send_email(subject, sender_email, password, receiver_email, txt_msg, msg)
+			receiver_email = response_1.data.email
+			msg = msg.replace('[em]', receiver_email)
+			msg = msg.replace('[of_id]', of_id)
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id)
 		break;
 
