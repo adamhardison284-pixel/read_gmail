@@ -1,9 +1,10 @@
 name: Gmail IMAP + Supabase
 
 on:
-  schedule:
-    - cron: '*/240 * * * *' # every 240 minutes
-  workflow_dispatch: {}
+  workflow_run:
+    workflows: ["Send Gmail Script"]  # 👈 exact name of the first workflow
+    types:
+      - completed 
 
 jobs:
   imap-job:
