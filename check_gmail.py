@@ -23,7 +23,7 @@ python gmail_collect.py
 
 # === CONFIG ===
 for smtp in smtps:
-    IMAP_SERVER = "imap.gmail.com"
+    IMAP_SERVER = smtp['imap']
     EMAIL_ACCOUNT = smtp['username']
     EMAIL_PASSWORD = smtp['pass'].replace(" ","")
     
