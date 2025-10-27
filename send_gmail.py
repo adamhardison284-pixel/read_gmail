@@ -30,7 +30,7 @@ smtps = response.data
 
 subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
 table_name = "web_de"
-of_id = 6;
+of_id = "6";
 txt_msg = ""
 msg = """
     <p>Hallo,</p>
