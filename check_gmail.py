@@ -45,7 +45,7 @@ for smtp in smtps:
         exit()
     
     msg_ids = data[0].split()
-    print(f"Found {len(msg_ids)} possible bounces to {acc[0]}.")
+    print(f"Found {len(msg_ids)} possible bounces to {EMAIL_ACCOUNT}.")
     
     rows = []
     for msg_id in msg_ids:
