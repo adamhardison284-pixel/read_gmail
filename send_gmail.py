@@ -18,8 +18,8 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 	    msg.attach(MIMEText(html, "html"))
 	    
 	    # --- Send the email ---
-	    with smtplib.SMTP_SSL("smtp.gmail.com", 485) as server:
-	        server.login(sender_email, password)
+	    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+	        server.login(sender_email, "sssss")
 	        server.sendmail(sender_email, receiver_email, msg.as_string())
 	except:
 		offer_id = int(offer_id)
