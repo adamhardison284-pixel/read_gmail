@@ -8,16 +8,16 @@ from zoneinfo import ZoneInfo
 
 def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host):
 	try:
-	    msg = MIMEMultipart("alternative")
-	    msg["Subject"] = subject
-	    msg["From"] = sender_email
-	    msg["To"] = receiver_email
-	
-	    # Attach both versions
-	    msg.attach(MIMEText(text, "plain"))
-	    msg.attach(MIMEText(html, "html"))
-	    
-	    # --- Send the email ---
+		msg = MIMEMultipart("alternative")
+		msg["Subject"] = subject
+		msg["From"] = sender_email
+		msg["To"] = receiver_email
+		
+		# Attach both versions
+		msg.attach(MIMEText(text, "plain"))
+		msg.attach(MIMEText(html, "html"))
+		
+		# --- Send the email ---
 		with smtplib.SMTP(smtp_host, 587) as server:
 			server.starttls()
 			server.login(sender_email, password)
