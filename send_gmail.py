@@ -87,5 +87,5 @@ for smtp in smtps:
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'])
-		break;
+		
 
