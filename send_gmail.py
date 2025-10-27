@@ -6,6 +6,21 @@ from supabase import create_client, Client
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+def send_email(subject, sender_email, password, receiver_email, text, html):
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = subject
+    msg["From"] = sender_email
+    msg["To"] = receiver_email
+
+    # Attach both versions
+    msg.attach(MIMEText(text, "plain"))
+    msg.attach(MIMEText(html, "html"))
+    
+    # --- Send the email ---
+    with smtplib.SMTP_SSL("smtp.gmail.com", 587) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, msg.as_string())
+		
 url_ = "https://vptrmftnkfewhscirhqe.supabase.co"
 key = "sb_secret_xw2d9ghzJh0MezkSGTCeOw_C1_4FXKj"
 supabase: Client = create_client(url_, key)
@@ -65,17 +80,3 @@ for smtp in smtps:
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg)
 		break;
 
-def send_email(subject, sender_email, password, receiver_email, text, html):
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"] = sender_email
-    msg["To"] = receiver_email
-
-    # Attach both versions
-    msg.attach(MIMEText(text, "plain"))
-    msg.attach(MIMEText(html, "html"))
-    
-    # --- Send the email ---
-    with smtplib.SMTP_SSL("smtp.gmail.com", 587) as server:
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, msg.as_string())
