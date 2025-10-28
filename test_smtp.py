@@ -54,5 +54,5 @@ sender_email = 'top-deals@a1185346.xsph.ru'
 password = 'Arbinaji1987$'
 msg = msg.replace('[em]', receiver_email)
 msg = msg.replace('[of_id]', of_id)
-send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['host'])
+send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, "smtp.a1185346.xsph.ru")
 		
