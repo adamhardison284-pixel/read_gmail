@@ -63,7 +63,8 @@ for smtp in smtps:
                 print("aaa: ", aaa)
                 imap.store(msg_id, '+FLAGS', '\\Deleted')
             else:
-                To = str(mm.group()).replace("Final-Recipient: rfc822; ", "")
+                To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
+                To = To.replace(" ", "")
                 print("To: ", To)
                 insert_email_to_supabase(To)
                 imap.store(msg_id, '+FLAGS', '\\Deleted')
