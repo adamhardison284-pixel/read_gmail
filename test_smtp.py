@@ -50,7 +50,7 @@ msg = """
 	<strong>Dein Rewards-Team</strong></p>
 """
 receiver_email = "nancycronhykiin387cc@web.de"
-sender_email = 'top-deals@a1185346.xsph.ru'
+sender_email = 'let@a1185346.xsph.ru'
 password = 'Arbinaji1987$'
 msg = msg.replace('[em]', receiver_email)
 msg = msg.replace('[of_id]', of_id)
