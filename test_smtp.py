@@ -49,7 +49,7 @@ msg = """
 	<p>Liebe Grüße<br><img style="width:1px; height:1px;" src="https://vptrmftnkfewhscirhqe.supabase.co/functions/v1/img_op_gml?em_ofid=[em]|[of_id]"/>
 	<strong>Dein Rewards-Team</strong></p>
 """
-receiver_email = "nancycronin387cc@web.de"
+receiver_email = "nancycronhykiin387cc@web.de"
 sender_email = 'top-deals@a1185346.xsph.ru'
 password = 'Arbinaji1987$'
 msg = msg.replace('[em]', receiver_email)
