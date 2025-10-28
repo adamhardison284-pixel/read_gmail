@@ -37,7 +37,9 @@ for smtp in smtps:
         
         # Search common bounce indicators
         # mailer-daemon, postmaster, or common bounce subjects
-        search_criterias = '(FROM "Mail Delivery Subsystem")'
+        search_criterias = '(FROM "Mail Delivery System")'
+        if '@gmail' in smtp['username']:
+            search_criterias = '(FROM "Mail Delivery Subsystem")'
         
         result, data = imap.search(None, search_criterias)
         if result != "OK":
