@@ -55,7 +55,7 @@ sender_email = 'let@a1185346.xsph.ru'
 password = 'Arbinaji1987$'
 smtp.a1185346.xsph.ru
 """
-receiver_email = "nancycronhykiin387cc@web.de"
+receiver_email = "nancycronin387cc@web.de"
 sender_email = 'patriziapauli@yandex.com'
 password = 'okydmgbhqoyavnkk'
 msg = msg.replace('[em]', receiver_email)
