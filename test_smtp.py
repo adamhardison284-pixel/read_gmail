@@ -56,8 +56,8 @@ password = 'Arbinaji1987$'
 smtp.a1185346.xsph.ru
 """
 receiver_email = "nancycronhykiin387cc@web.de"
-sender_email = 'arbi.naji@gmail.com'
-password = 'mZ8eLLYeYug8'
+sender_email = 'patriziapauli@yandex.com'
+password = 'okydmgbhqoyavnkk'
 msg = msg.replace('[em]', receiver_email)
 msg = msg.replace('[of_id]', of_id)
 send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, "connect.smtp.bz")
