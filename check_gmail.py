@@ -40,6 +40,8 @@ for smtp in smtps:
         search_criterias = '(FROM "Mail Delivery System")'
         if '@gmail' in smtp['username']:
             search_criterias = '(FROM "Mail Delivery Subsystem")'
+        elif '@yandex.com' in smtp['username']:
+            search_criterias = '(FROM "mailer-daemon@yandex.ru")'
         
         result, data = imap.search(None, search_criterias)
         if result != "OK":
