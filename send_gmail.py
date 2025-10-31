@@ -31,6 +31,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		offer_id = int(offer_id)
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
 		response_data_ = supabase.table('gmail_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
+		print('not sent')
 
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
