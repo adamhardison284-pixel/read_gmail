@@ -26,6 +26,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 			nb_send = nb_send + 1
 			str_now = now.strftime("%Y-%m-%d %H:%M:%S")
 			response_data_3 = supabase.table('gmail_smtps').update({"last_time": str_now, "nb_send": nb_send}).eq("id", smtp_id).execute()
+			print('yes sent')
 	except:
 		offer_id = int(offer_id)
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
