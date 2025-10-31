@@ -6,7 +6,7 @@ from supabase import create_client, Client
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host):
+def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host, nb_send):
 	try:
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
@@ -22,6 +22,10 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 			server.starttls()
 			server.login(sender_email, password)
 			server.sendmail(sender_email, receiver_email, msg.as_string())
+			
+			nb_send = nb_send + 1
+			str_now = now.strftime("%Y-%m-%d %H:%M:%S")
+			response_data_3 = supabase.table('gmail_smtps').update({"last_time": str_now, "nb_send": nb_send}).eq("id", smtp_id).execute()
 	except:
 		offer_id = int(offer_id)
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
@@ -76,9 +80,6 @@ for smtp in smtps:
 		diff_minutes = (now - last_time_send).total_seconds() / 60
 		time_between_emails = 24*60 / smtp['max_send']
 		if diff_minutes >= time_between_emails:
-			nb_send = smtp['nb_send'] + 1
-			str_now = now.strftime("%Y-%m-%d %H:%M:%S")
-			response_data_3 = supabase.table('gmail_smtps').update({"last_time": str_now, "nb_send": nb_send}).eq("id", smtp['id']).execute()
 			response_1 = supabase.rpc(
 				"get_one_email_and_insert",
 				{"p_table": table_name, "p_offer_id": of_id}
@@ -87,6 +88,6 @@ for smtp in smtps:
 			receiver_email = response_1.data[0]['email']
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
-			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'], smtp['nb_send'])
 		
 
