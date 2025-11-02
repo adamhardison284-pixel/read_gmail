@@ -31,6 +31,6 @@ def check_email_exists(email):
         return {"email": email, "exists": False, "error": str(e)}
 
 # Example usage
-emails = ["keosov@web.de"]
+emails = ["keosov@web.de", "arqszbi.nazeji@gmail.com", "arbi.naji@gmail.com"]
 for email in emails:
     print(check_email_exists(email))
