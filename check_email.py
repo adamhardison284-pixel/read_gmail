@@ -12,7 +12,7 @@ def check_email_exists(email):
         return {"email": email, "exists": False, "error": f"DNS error: {e}"}
 
     # SMTP setup
-    host = 'your-domain.com'  # replace with your domain or any hostname
+    host = 'gmail.com'  # replace with your domain or any hostname
     server = smtplib.SMTP()
     server.set_debuglevel(0)
 
