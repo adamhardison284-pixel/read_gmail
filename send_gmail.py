@@ -71,10 +71,10 @@ msg = """
 for smtp in smtps:
 	if smtp['ready'] == True:
 		#receiver_email = "zhoridlono@web.de"
-		previous_str = smtp['last_time']
 		sender_email = smtp['username']
 		password = smtp['pass']
 		# Parse the string into a datetime object (includes UTC offset)
+		previous_str = smtp['last_time']
 		last_time_send = datetime.fromisoformat(previous_str)
 		# Current UTC time
 		now = datetime.now(timezone.utc)
@@ -91,5 +91,27 @@ for smtp in smtps:
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'], smtp['nb_send'])
+	if smtp['ready'] == False:
+		sender_email = smtp['username']
+		password = smtp['pass']
+		# Parse the string into a datetime object (includes UTC offset)
+		previous_str = smtp['last_time']
+		last_time_send = datetime.fromisoformat(previous_str)
+		# Current UTC time
+		now = datetime.now(timezone.utc)
+		# Difference in minutes
+		diff_minutes = (now - last_time_send).total_seconds() / 60
+		if diff_minutes >= 30:
+			response_data_ = supabase.table('gmail_smtps').update({"ready": 1}).eq("id", smtp['id']).execute()
+			response_1 = supabase.rpc(
+				"get_one_email_and_insert",
+				{"p_table": table_name, "p_offer_id": of_id}
+			).execute()
+			print('response_1.data: ', response_1.data[0]['email'])
+			receiver_email = response_1.data[0]['email']
+			msg = msg.replace('[em]', receiver_email)
+			msg = msg.replace('[of_id]', of_id)
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'], smtp['nb_send'])
+		
 		
 
