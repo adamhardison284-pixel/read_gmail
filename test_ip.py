@@ -1,4 +1,5 @@
 import requests
+import time
 
 # API endpoint (replace with your own)
 url = "https://ip-score.com/fulljson"
@@ -23,7 +24,8 @@ for x in range(4):
     
         # Print the result
         print("✅ Success! Response data:")
-        print(data['ip'])
+        print(data)
+        time.sleep(5)
     
     except requests.exceptions.RequestException as e:
         print("❌ Request failed:", e)
