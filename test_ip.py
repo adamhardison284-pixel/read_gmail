@@ -23,7 +23,7 @@ for x in range(4):
     
         # Print the result
         print("✅ Success! Response data:")
-        print(data.ip)
+        print(data['ip'])
     
     except requests.exceptions.RequestException as e:
         print("❌ Request failed:", e)
