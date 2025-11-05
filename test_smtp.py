@@ -29,15 +29,15 @@ msg = """
     <p>Hallo,</p>
 """
 """
-receiver_email = "nancycronhykiin387cc@web.de"
+receiver_email = "bryan.pell@hotmail.com"
 sender_email = 'let@a1185346.xsph.ru'
 password = 'Arbinaji1987$'
 smtp.a1185346.xsph.ru
 """
 receiver_email = "nancycronin387cc@web.de"
-sender_email = 'patriziapauli@yandex.com'
-password = 'okydmgbhqoyavnkk'
+sender_email = 'helena-jahn@a1187690.xsph.ru'
+password = 'Arbinaji1987$'
 msg = msg.replace('[em]', receiver_email)
 msg = msg.replace('[of_id]', of_id)
-send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, "smtp.yandex.com")
+send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, "smtp.a1187690.xsph.ru")
 		
