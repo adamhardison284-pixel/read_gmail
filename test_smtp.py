@@ -35,12 +35,14 @@ sender_email = 'let@a1186466.xsph.ru'
 password = 'Arbinaji1987$'
 smtp.a1185346.xsph.ru
 """
+iddd = "a1187526"
 receiver_email = "bryan.pell@hotmail.com"
 receiver_email = "adamoyler2705cc@web.de"
 #receiver_email = "arbi.naji@gmail.com"
-sender_email = 'helena-jahn@a1189312.xsph.ru'
+sender_email = 'helena-jahn@"+iddd+".xsph.ru'
 password = 'Arbinaji1987$'
 msg = msg.replace('[em]', receiver_email)
 msg = msg.replace('[of_id]', of_id)
-send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, "smtp.a1189312.xsph.ru")
+hhost = "smtp."+iddd+".xsph.ru"
+send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, hhost)
 		
