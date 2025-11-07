@@ -30,7 +30,7 @@ msg = """
 """
 """
 receiver_email = "bryan.pell@hotmail.com"
-sender_email = 'let@a1185346.xsph.ru'
+sender_email = 'let@a1186466.xsph.ru'
 password = 'Arbinaji1987$'
 smtp.a1185346.xsph.ru
 """
