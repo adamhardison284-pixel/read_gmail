@@ -20,6 +20,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
     server.starttls()
     server.login(sender_email, password)
     server.sendmail(sender_email, receiver_email, msg.as_string())
+	print('sent')
 
 subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
 table_name = "web_de"
