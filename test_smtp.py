@@ -36,6 +36,7 @@ password = 'Arbinaji1987$'
 smtp.a1185346.xsph.ru
 """
 receiver_email = "bryan.pell@hotmail.com"
+receiver_email = "nancycronin387cc@web.de"
 #receiver_email = "arbi.naji@gmail.com"
 sender_email = 'helena-jahn@a1189294.xsph.ru'
 password = 'Arbinaji1987$'
