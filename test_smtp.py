@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_host):
   msg = MIMEMultipart("alternative")
   msg["Subject"] = subject
-  msg["From"] = "newsletter@finya.de"
+  msg["From"] = "ae-market.ae5@deals.aliexpress.com"
   msg["To"] = receiver_email
   
   # Attach both versions
