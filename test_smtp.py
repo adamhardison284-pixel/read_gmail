@@ -37,7 +37,7 @@ smtp.a1185346.xsph.ru
 """
 receiver_email = "bryan.pell@hotmail.com"
 receiver_email = "arbi.naji@gmail.com"
-sender_email = 'helena-jahn@a1189312.xsph.ru'
+sender_email = 'helena-jahn@a1187527.xsph.ru'
 password = 'Arbinaji1987$'
 msg = msg.replace('[em]', receiver_email)
 msg = msg.replace('[of_id]', of_id)
