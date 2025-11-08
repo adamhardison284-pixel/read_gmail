@@ -64,6 +64,7 @@ for idq in idss:
 		receiver_email = "adamhardison284@gmail.com"
 		receiver_email = "kamlal.fahmi@yahoo.com"
 		receiver_email = "donaskarine13@gmx.fr"
+		receiver_email = "nancycronin387cc@web.de"
 		sender_email = 'helena-jahn@'+iddd+'.xsph.ru'
 		password = 'Arbinaji1987$'
 		msg = msg.replace('[em]', receiver_email)
