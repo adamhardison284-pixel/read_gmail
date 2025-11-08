@@ -58,20 +58,16 @@ idss = [
 	"a1187768"
 ]
 for idq in idss:
-	try:
-		iddd = idq
-		receiver_email = "bryan.pell@hotmail.com"
-		receiver_email = "adamhardison284@gmail.com"
-		receiver_email = "kamlal.fahmi@yahoo.com"
-		receiver_email = "donaskarine13@gmx.fr"
-		receiver_email = "nancycronin387cc@web.de"
-		sender_email = 'helena-jahn@'+iddd+'.xsph.ru'
-		password = 'Arbinaji1987$'
-		msg = msg.replace('[em]', receiver_email)
-		msg = msg.replace('[of_id]', of_id)
-		hhost = "smtp."+iddd+".xsph.ru"
-		send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, hhost)
-	except:
-		print('sender_email: ', sender_email)
-		print('not sent')
+	iddd = idq
+	receiver_email = "bryan.pell@hotmail.com"
+	receiver_email = "adamhardison284@gmail.com"
+	receiver_email = "kamlal.fahmi@yahoo.com"
+	receiver_email = "donaskarine13@gmx.fr"
+	receiver_email = "nancycronin387cc@web.de"
+	sender_email = 'helena-jahn@'+iddd+'.xsph.ru'
+	password = 'Arbinaji1987$'
+	msg = msg.replace('[em]', receiver_email)
+	msg = msg.replace('[of_id]', of_id)
+	hhost = "smtp."+iddd+".xsph.ru"
+	send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, hhost)
 		
