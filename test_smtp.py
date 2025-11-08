@@ -20,6 +20,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 	  server.starttls()
 	  server.login(sender_email, password)
 	  server.sendmail(sender_email, receiver_email, msg.as_string())
+	  print('sender_email: ', sender_email)
 	  print('sent')
 
 subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
@@ -35,15 +36,41 @@ sender_email = 'let@a1186466.xsph.ru'
 password = 'Arbinaji1987$'
 smtp.a1185346.xsph.ru
 """
-iddd = "a1189320"
-receiver_email = "bryan.pell@hotmail.com"
-receiver_email = "donaskarine13@gmx.fr"
-receiver_email = "adamhardison284@gmail.com"
-receiver_email = "kamlal.fahmi@yahoo.com"
-sender_email = 'helena-jahn@'+iddd+'.xsph.ru'
-password = 'Arbinaji1987$'
-msg = msg.replace('[em]', receiver_email)
-msg = msg.replace('[of_id]', of_id)
-hhost = "smtp."+iddd+".xsph.ru"
-send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, hhost)
+idss = [
+	"a1187690",
+	"a1187692",
+	"a1187693",
+	"a1187696",
+	"a1187700",
+	"a1187702",
+	"a1187703",
+	"a1187704",
+	"a1187706",
+	"a1187716",
+	"a1187732",
+	"a1187738",
+	"a1187637",
+	"a1187743",
+	"a1187744",
+	"a1187749",
+	"a1187750",
+	"a1187766",
+	"a1187768"
+]
+for idq in idss:
+	try:
+		iddd = idq
+		receiver_email = "bryan.pell@hotmail.com"
+		receiver_email = "adamhardison284@gmail.com"
+		receiver_email = "kamlal.fahmi@yahoo.com"
+		receiver_email = "donaskarine13@gmx.fr"
+		sender_email = 'helena-jahn@'+iddd+'.xsph.ru'
+		password = 'Arbinaji1987$'
+		msg = msg.replace('[em]', receiver_email)
+		msg = msg.replace('[of_id]', of_id)
+		hhost = "smtp."+iddd+".xsph.ru"
+		send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, hhost)
+	except:
+		print('sender_email: ', sender_email)
+		print('not sent')
 		
