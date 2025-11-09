@@ -4,9 +4,12 @@ import re
 import csv
 import os
 from supabase import create_client, Client
-
+"""
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
+"""
+url = "https://jdnmanfimzvbilacjgcj.supabase.co"
+key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
 supabase: Client = create_client(url, key)
 response = supabase.table("gmail_smtps").select("*").execute()
 smtps = response.data
