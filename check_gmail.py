@@ -73,11 +73,13 @@ for smtp in smtps:
                 print("To: ", To)
                 reason_code_1 = "552 1 Requested mail action aborted, mailbox not found"
                 reason_code_2 = "554-IP address is block listed"
+                reason_code_3 = "all hosts for 'web.de' have been failing for a long time (and retry time not reached)"
                 rc_1 = re.search(reason_code_1, str(msg), re.I)
                 rc_2 = re.search(reason_code_2, str(msg), re.I)
+                rc_3 = re.search(reason_code_3, str(msg), re.I)
                 if rc_1:
                     insert_email_to_supabase(To)
-                elif rc_2:
+                elif rc_2 or rc_3:
                     """
                     result_1 = supabase.rpc(
                         "update_reason",
