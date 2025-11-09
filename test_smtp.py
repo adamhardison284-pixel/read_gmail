@@ -36,7 +36,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
 
-url_ = "https://jdnmanfimzvbilacjgcj.supabase.co"
+url = "https://jdnmanfimzvbilacjgcj.supabase.co"
 key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
 supabase: Client = create_client(url, key)	
 
