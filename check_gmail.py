@@ -71,7 +71,7 @@ for smtp in smtps:
                 To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
                 To = To.replace(" ", "")
                 print("To: ", To)
-                reason_code_1 = "550 Requested action not taken: mailbox unavailable"
+                reason_code_1 = "action not taken: mailbox unavailable"
                 reason_code_2 = "554-IP address is block listed"
                 reason_code_3 = "all hosts for 'web.de' have been failing for a long time (and retry time not reached)"
                 rc_1 = re.search(reason_code_1, str(msg), re.I)
