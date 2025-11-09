@@ -33,8 +33,12 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		response_data_ = supabase.table('gmail_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
 		print('not sent')
 
+"""
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
+"""
+url = "https://jdnmanfimzvbilacjgcj.supabase.co"
+key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
 supabase: Client = create_client(url, key)	
 
 response = supabase.table("gmail_smtps").select("*").execute()
@@ -64,8 +68,8 @@ msg = """
 	</ol>
 	<p>Aber beeil dich – die Stückzahlen sind begrenzt und die Aktion läuft nur für kurze Zeit!</p>
 	<p><img data-emoji="✨" class="an1" alt="✨" aria-label="✨" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/16.0/2728/32.png" loading="lazy"> <strong>Jetzt kostenlose Produkte sichern und Neues entdecken!</strong></p>
-	<p><a style="text-decoration:none" href="https://www.watana-design.com/en/website-design/redirect.php?url=https://vptrmftnkfewhscirhqe.supabase.co/functions/v1/trk1_clk?em_ofid=[em]|[of_id]"><b><font color="#0000ff">Jetzt gratis sichern</font></b></a>&nbsp;<img data-emoji="🔥" class="an1" alt="🔥" aria-label="🔥" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/16.0/1f525/32.png" loading="lazy"></p>
-	<p>Liebe Grüße<br><img style="width:1px; height:1px;" src="https://vptrmftnkfewhscirhqe.supabase.co/functions/v1/img_op_gml?em_ofid=[em]|[of_id]"/>
+	<p><a style="text-decoration:none" href="https://www.watana-design.com/en/website-design/redirect.php?url=https://jdnmanfimzvbilacjgcj.supabase.co/functions/v1/trk1_clk?em_ofid=[em]|[of_id]"><b><font color="#0000ff">Jetzt gratis sichern</font></b></a>&nbsp;<img data-emoji="🔥" class="an1" alt="🔥" aria-label="🔥" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/16.0/1f525/32.png" loading="lazy"></p>
+	<p>Liebe Grüße<br><img style="width:1px; height:1px;" src="https://jdnmanfimzvbilacjgcj.supabase.co/functions/v1/img_op_gml?em_ofid=[em]|[of_id]"/>
 	<strong>Dein Rewards-Team</strong></p>
 """
 for smtp in smtps:
