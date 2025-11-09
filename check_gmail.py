@@ -13,7 +13,7 @@ smtps = response.data
 
 def insert_email_to_supabase(p_email):
     result = supabase.rpc(
-        "insert_bounced_email_github",
+        "insert_bounced_email",
         {"p_email": p_email}
     ).execute()
 
@@ -68,7 +68,10 @@ for smtp in smtps:
                 To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
                 To = To.replace(" ", "")
                 print("To: ", To)
-                insert_email_to_supabase(To)
+                reason_code = "552 1 Requested mail action aborted, mailbox not found"
+                rc = re.search(reason_code, str(msg), re.I)
+                if rc:
+                    insert_email_to_supabase(To)
                 imap.store(msg_id, '+FLAGS', '\\Deleted')
         imap.expunge()
         imap.logout()
