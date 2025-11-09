@@ -75,10 +75,13 @@ for smtp in smtps:
                 if rc_1:
                     insert_email_to_supabase(To)
                 elif rc_2:
+                    """
                     result_1 = supabase.rpc(
                         "update_reason",
                         {"uid": smtp['id']}
                     ).execute()
+                    """
+                    response_data_ = supabase.table('gmail_smtps').update({"ready": 0, "reason": "blacklisted"}).eq("id", smtp['id']).execute()
                 imap.store(msg_id, '+FLAGS', '\\Deleted')
         imap.expunge()
         imap.logout()
