@@ -84,7 +84,7 @@ for x in range(1):
 		#if smtp['ready'] == True:
 		#receiver_email = "zhoridlono@web.de"
 		sender_email = smtp['username']
-		sender_email = "helena-jahn@a1192039.xsph.ru"
+		#sender_email = "helena-jahn@a1192039.xsph.ru"
 		password = 'Arbinaji1987$'
 		if 1 == 1:
 			"""
@@ -102,7 +102,7 @@ for x in range(1):
 			#receiver_email = 'haitam.naji1994@gmail.com'
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
-			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], 'smtp.a1192039.xsph.ru')
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
 		
 		
 
