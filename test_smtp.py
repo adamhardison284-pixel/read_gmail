@@ -105,7 +105,7 @@ for x in range(1):
 			receiver_email = response_1.data[0]['email']
 			"""
 			receiver_email = 'kamlal.fahmi@yahoo.com'
-			receiver_email = 'arbi.naji@gmail.com'
+			receiver_email = 'Catherine.blara@hotmail.com'
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
