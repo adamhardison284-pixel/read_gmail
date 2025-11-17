@@ -11,7 +11,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		#try:
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
-		msg["From"] = 'Catherine.blara@hotmail.com'
+		msg["From"] = 'arbi.naji@gmail.com'
 		msg["To"] = receiver_email
 		
 		# Attach both versions
