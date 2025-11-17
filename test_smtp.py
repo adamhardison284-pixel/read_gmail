@@ -11,7 +11,8 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		#try:
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
-		msg["From"] = 'amazon giveaways<deals@amazon.com>'
+		#msg["From"] = 'amazon giveaways<deals@amazon.com>
+		msg["From"] = 'amazon giveaways<no-reply@rolahgail.com>'
 		msg["To"] = receiver_email
 		
 		# Attach both versions
@@ -46,7 +47,7 @@ url = "https://jdnmanfimzvbilacjgcj.supabase.co"
 key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
 supabase: Client = create_client(url, key)	
 
-for x in range(5):
+for x in range(1):
 		resp = supabase.rpc(
 		            "get_smtp",
 		            {"new_name": "sprint_host_smtps"}
