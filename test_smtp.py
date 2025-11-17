@@ -13,7 +13,6 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		msg["Subject"] = subject
 		msg["From"] = sender_email
 		msg["To"] = receiver_email
-		msg["Reply-To"] = 'Catherine.blara@hotmail.com'
 		
 		# Attach both versions
 		msg.attach(MIMEText(text, "plain"))
