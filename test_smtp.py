@@ -47,7 +47,7 @@ resp = supabase.rpc(
             "get_smtp",
             {"new_name": "sprint_host_smtps"}
         ).execute()
-smtp = response.data[0]
+smtp = resp.data[0]
 
 subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
 table_name = "web_de"
