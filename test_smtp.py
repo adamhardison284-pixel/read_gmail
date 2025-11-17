@@ -84,6 +84,7 @@ for x in range(1):
 		#if smtp['ready'] == True:
 		#receiver_email = "zhoridlono@web.de"
 		sender_email = smtp['username']
+		sender_email = "helena-jahn@a1192039.xsph.ru"
 		password = 'Arbinaji1987$'
 		if 1 == 1:
 			"""
@@ -96,6 +97,7 @@ for x in range(1):
 			"""
 			receiver_email = 'Catherine.blara@hotmail.com'
 			receiver_email = 'kamlal.fahmi@yahoo.com'
+			receiver_email = 'nancycronin387cc@web.de'
 			#receiver_email = 'laurawinskey@gmail.com'
 			#receiver_email = 'haitam.naji1994@gmail.com'
 			msg = msg.replace('[em]', receiver_email)
