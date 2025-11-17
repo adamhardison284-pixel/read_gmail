@@ -80,7 +80,7 @@ msg = """
 	<p>Liebe Grüße<br><img style="width:1px; height:1px;" src="https://vptrmftnkfewhscirhqe.supabase.co/functions/v1/img_op_gml?em_ofid=[em]|[of_id]"/>
 	<strong>Dein Rewards-Team</strong></p>
 """
-for x in range(1):
+for x in range(5):
 		#if smtp['ready'] == True:
 		#receiver_email = "zhoridlono@web.de"
 		sender_email = smtp['username']
