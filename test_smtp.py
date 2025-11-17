@@ -102,7 +102,7 @@ for x in range(1):
 			#receiver_email = 'haitam.naji1994@gmail.com'
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
-			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], 'smtp.a1192039.xsph.ru')
 		
 		
 
