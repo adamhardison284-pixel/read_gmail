@@ -13,7 +13,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		msg["Subject"] = subject
 		msg["From"] = sender_email
 		msg["To"] = receiver_email
-		msg["Reply-To"] = "receiver_email"
+		msg["Reply-To"] = sender_email
 		
 		# Attach both versions
 		msg.attach(MIMEText(text, "plain"))
@@ -86,17 +86,6 @@ for x in range(1):
 		#receiver_email = "zhoridlono@web.de"
 		sender_email = smtp['username']
 		password = 'Arbinaji1987$'
-		"""
-		# Parse the string into a datetime object (includes UTC offset)
-		previous_str = smtp['last_time']
-		last_time_send = datetime.fromisoformat(previous_str)
-		# Current UTC time
-		now = datetime.now(timezone.utc)
-		# Difference in minutes
-		diff_minutes = (now - last_time_send).total_seconds() / 60
-		time_between_emails = 24*60 / smtp['max_send']
-		if diff_minutes >= time_between_emails:
-		"""
 		if 1 == 1:
 			"""
 			response_1 = supabase.rpc(
@@ -109,32 +98,10 @@ for x in range(1):
 			receiver_email = 'Catherine.blara@hotmail.com'
 			receiver_email = 'kamlal.fahmi@yahoo.com'
 			receiver_email = 'laurawinskey@gmail.com'
+			receiver_email = 'haitam.naji1994@gmail.com'
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
-		"""
-		if smtp['ready'] == False:
-			sender_email = smtp['username']
-			password = smtp['pass']
-			# Parse the string into a datetime object (includes UTC offset)
-			previous_str = smtp['last_time']
-			last_time_send = datetime.fromisoformat(previous_str)
-			# Current UTC time
-			now = datetime.now(timezone.utc)
-			# Difference in minutes
-			diff_minutes = (now - last_time_send).total_seconds() / 60
-			if diff_minutes >= 30:
-				response_data_ = supabase.table('gmail_smtps').update({"ready": 1}).eq("id", smtp['id']).execute()
-				response_1 = supabase.rpc(
-					"get_one_email_and_insert",
-					{"p_table": table_name, "p_offer_id": of_id}
-				).execute()
-				print('response_1.data: ', response_1.data[0]['email'])
-				receiver_email = response_1.data[0]['email']
-				msg = msg.replace('[em]', receiver_email)
-				msg = msg.replace('[of_id]', of_id)
-				send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'], smtp['nb_send'])
-		"""
 		
 		
 
