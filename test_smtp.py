@@ -7,7 +7,8 @@ from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
 def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host):
-	try:
+		
+		#try:
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
 		msg["From"] = sender_email
@@ -28,13 +29,14 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 			response_data_3 = supabase.table('gmail_smtps').update({"last_time": str_now, "nb_send": nb_send}).eq("id", smtp_id).execute()
 			"""
 			print('yes sent')
-	except:
-		offer_id = int(offer_id)
 		"""
+		except:
+		offer_id = int(offer_id)
+		
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
 		response_data_ = supabase.table('gmail_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
-		"""
 		print('not sent')
+		"""
 
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
