@@ -13,7 +13,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		msg["Subject"] = subject
 		msg["From"] = sender_email
 		msg["To"] = receiver_email
-		msg["Reply-To"] = sender_email
+		msg["Reply-To"] = 'Catherine.blara@hotmail.com'
 		
 		# Attach both versions
 		msg.attach(MIMEText(text, "plain"))
@@ -98,7 +98,7 @@ for x in range(1):
 			receiver_email = 'Catherine.blara@hotmail.com'
 			receiver_email = 'kamlal.fahmi@yahoo.com'
 			receiver_email = 'laurawinskey@gmail.com'
-			receiver_email = 'haitam.naji1994@gmail.com'
+			#receiver_email = 'haitam.naji1994@gmail.com'
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
