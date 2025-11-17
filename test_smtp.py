@@ -30,6 +30,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 			response_data_3 = supabase.table('gmail_smtps').update({"last_time": str_now, "nb_send": nb_send}).eq("id", smtp_id).execute()
 			"""
 			print('yes sent')
+			print('sender: ', sender_email)
 		"""
 		except:
 		offer_id = int(offer_id)
