@@ -83,7 +83,7 @@ for x in range(1):
 		#if smtp['ready'] == True:
 		#receiver_email = "zhoridlono@web.de"
 		sender_email = smtp['username']
-		password = 'ArbiNaji1987$'
+		password = 'Arbinaji1987$'
 		"""
 		# Parse the string into a datetime object (includes UTC offset)
 		previous_str = smtp['last_time']
