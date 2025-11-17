@@ -52,8 +52,9 @@ for x in range(5):
 		            {"new_name": "sprint_host_smtps"}
 		        ).execute()
 		smtp = resp.data[0]
+		sender_email = smtp['username']
 		
-		subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
+		subject = sender_email + "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
 		table_name = "web_de"
 		of_id = "6";
 		txt_msg = ""
@@ -83,7 +84,6 @@ for x in range(5):
 		"""
 		#if smtp['ready'] == True:
 		#receiver_email = "zhoridlono@web.de"
-		sender_email = smtp['username']
 		#sender_email = "helena-jahn@a1192039.xsph.ru"
 		password = 'Arbinaji1987$'
 		if 1 == 1:
