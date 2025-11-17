@@ -6,7 +6,7 @@ from supabase import create_client, Client
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host, nb_send):
+def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host):
 	try:
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
@@ -22,15 +22,18 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 			server.starttls()
 			server.login(sender_email, password)
 			server.sendmail(sender_email, receiver_email, msg.as_string())
-			
+			"""
 			nb_send = nb_send + 1
 			str_now = now.strftime("%Y-%m-%d %H:%M:%S")
 			response_data_3 = supabase.table('gmail_smtps').update({"last_time": str_now, "nb_send": nb_send}).eq("id", smtp_id).execute()
+			"""
 			print('yes sent')
 	except:
 		offer_id = int(offer_id)
+		"""
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
 		response_data_ = supabase.table('gmail_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
+		"""
 		print('not sent')
 
 url: str = os.environ.get("SUPABASE_URL")
@@ -40,8 +43,11 @@ url = "https://jdnmanfimzvbilacjgcj.supabase.co"
 key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
 supabase: Client = create_client(url, key)	
 
-response = supabase.table("gmail_smtps").select("*").execute()
-smtps = response.data
+resp = supabase.rpc(
+            "get_smtp",
+            {"new_name": "sprint_host_smtps"}
+        ).execute()
+smtp = response.data[0]
 
 subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
 table_name = "web_de"
@@ -71,11 +77,12 @@ msg = """
 	<p>Liebe Grüße<br><img style="width:1px; height:1px;" src="https://vptrmftnkfewhscirhqe.supabase.co/functions/v1/img_op_gml?em_ofid=[em]|[of_id]"/>
 	<strong>Dein Rewards-Team</strong></p>
 """
-for smtp in smtps:
-	if smtp['ready'] == True:
+for x in range(1):
+		#if smtp['ready'] == True:
 		#receiver_email = "zhoridlono@web.de"
 		sender_email = smtp['username']
-		password = smtp['pass']
+		password = 'ArbiNaji1987$'
+		"""
 		# Parse the string into a datetime object (includes UTC offset)
 		previous_str = smtp['last_time']
 		last_time_send = datetime.fromisoformat(previous_str)
@@ -85,15 +92,21 @@ for smtp in smtps:
 		diff_minutes = (now - last_time_send).total_seconds() / 60
 		time_between_emails = 24*60 / smtp['max_send']
 		if diff_minutes >= time_between_emails:
+		"""
+		if 1 == 1:
+			"""
 			response_1 = supabase.rpc(
 				"get_one_email_and_insert",
 				{"p_table": table_name, "p_offer_id": of_id}
 			).execute()
 			print('response_1.data: ', response_1.data[0]['email'])
 			receiver_email = response_1.data[0]['email']
+			"""
+			receiver_email = 'kamlal.fahmi@yahoo.com'
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
-			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'], smtp['nb_send'])
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
+	"""
 	if smtp['ready'] == False:
 		sender_email = smtp['username']
 		password = smtp['pass']
@@ -115,6 +128,7 @@ for smtp in smtps:
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'], smtp['nb_send'])
+	"""
 		
 		
 
