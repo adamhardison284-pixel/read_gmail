@@ -12,7 +12,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
 		"""
-		msg["From"] = 'amazon giveaways<deals@amazon.com>
+		msg["From"] = 'amazon giveaways<deals@amazon.com>'
 		msg["From"] = 'Das Überraschungsteam<deals@amazon.com>'
 		msg["From"] = 'Das Überraschungsteam <' + sender_email + '>'
 		"""
