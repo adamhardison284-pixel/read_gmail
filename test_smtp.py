@@ -61,7 +61,7 @@ for x in range(1):
 		
 		subject = sender_email + "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
 		table_name = "web_de"
-		of_id = "6";
+		of_id = "8";
 		txt_msg = ""
 		msg = """
 		    <p>Hallo,</p>
