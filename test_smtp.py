@@ -14,9 +14,9 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		"""
 		msg["From"] = 'amazon giveaways<deals@amazon.com>'
 		msg["From"] = 'Das Überraschungsteam<deals@amazon.com>'
-		msg["From"] = 'Das Überraschungsteam <' + sender_email + '>'
-		"""
 		msg["From"] = 'Das Überraschungsteam<surprise@amazon.com>'
+		"""
+		msg["From"] = 'Das Überraschungsteam <' + sender_email + '>'
 		msg["To"] = receiver_email
 		
 		# Attach both versions
