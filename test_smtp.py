@@ -288,12 +288,17 @@ for x in range(100):
 			receiver_email = 'nancycronin387cc@web.de'
 			receiver_email = 'kamlal.fahmi@yahoo.com'
 			"""
-			response_1 = supabase.rpc(
-				"get_one_email_and_insert",
-				{"p_table": table_name, "p_offer_id": of_id}
-			).execute()
-			print('response_1.data: ', response_1.data[0]['email'])
-			receiver_email = response_1.data[0]['email']
+			receiver_email = 'kamlal.fahmi@yahoo.com'
+			if x % 10 != 0:
+				response_1 = supabase.rpc(
+					"get_one_email_and_insert",
+					{"p_table": table_name, "p_offer_id": of_id}
+				).execute()
+				print('response_1.data: ', response_1.data[0]['email'])
+				receiver_email = response_1.data[0]['email']
+			else:
+				receiver_email = 'kamlal.fahmi@yahoo.com'
+				
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			m_host = smtp['host']
