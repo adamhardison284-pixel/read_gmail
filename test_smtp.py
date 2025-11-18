@@ -312,11 +312,11 @@ for x in range(1):
 			print('response_1.data: ', response_1.data[0]['email'])
 			receiver_email = response_1.data[0]['email']
 			"""
+			receiver_email = 'laurawinskey@gmail.com'
+			receiver_email = 'haitam.naji1994@gmail.com'
 			receiver_email = 'Catherine.blara@hotmail.com'
-			receiver_email = 'nancycronin387cc@web.de'
 			receiver_email = 'kamlal.fahmi@yahoo.com'
-			#receiver_email = 'laurawinskey@gmail.com'
-			#receiver_email = 'haitam.naji1994@gmail.com'
+			receiver_email = 'nancycronin387cc@web.de'
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			m_host = smtp['host']
