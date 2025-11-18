@@ -12,7 +12,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
 		#msg["From"] = 'amazon giveaways<deals@amazon.com>
-		msg["From"] = 'Das Überraschungsteam<best-deals@amazon.com>'
+		msg["From"] = 'Das Überraschungsteam<deals@amazon.com>'
 		msg["To"] = receiver_email
 		
 		# Attach both versions
@@ -297,6 +297,7 @@ for x in range(1):
 		#if smtp['ready'] == True:
 		#receiver_email = "zhoridlono@web.de"
 		#sender_email = "helena-jahn@a1192039.xsph.ru"
+		sender_email = "helena-jahn@a1192087.xsph.ru"
 		password = 'Arbinaji1987$'
 		if 1 == 1:
 			"""
@@ -314,7 +315,9 @@ for x in range(1):
 			#receiver_email = 'haitam.naji1994@gmail.com'
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
-			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
+			m_host = smtp['host']
+			m_host = 'smtp.a1192087.xsph.ru'
+			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], m_host)
 		
 		
 
