@@ -6,9 +6,10 @@ from supabase import create_client, Client
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+bcl = True
 def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host):
 		
-		#try:
+	try:
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
 		"""
@@ -31,18 +32,17 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 			"""
 			nb_send = nb_send + 1
 			str_now = now.strftime("%Y-%m-%d %H:%M:%S")
-			response_data_3 = supabase.table('gmail_smtps').update({"last_time": str_now, "nb_send": nb_send}).eq("id", smtp_id).execute()
+			response_data_3 = supabase.table('sprint_host_smtps').update({"last_time": str_now, "nb_send": nb_send}).eq("id", smtp_id).execute()
 			"""
 			print('yes sent')
 			print('sender: ', sender_email)
-		"""
-		except:
+			
+	except:
 		offer_id = int(offer_id)
-		
+		bcl = False
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
-		response_data_ = supabase.table('gmail_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
+		response_data_ = supabase.table('sprint_host_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
 		print('not sent')
-		"""
 
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
@@ -52,6 +52,7 @@ key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
 supabase: Client = create_client(url, key)	
 
 for x in range(5):
+		bcl = True
 		resp = supabase.rpc(
 		            "get_smtp",
 		            {"new_name": "sprint_host_smtps"}
