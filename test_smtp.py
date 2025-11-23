@@ -23,66 +23,68 @@ def check_imap(smtp_id, imap_, username_, pass_):
 	EMAIL_ACCOUNT = username_
 	EMAIL_PASSWORD = pass_
 	
-	try:
-		# === CONNECT ===
-		imap = imaplib.IMAP4_SSL(IMAP_SERVER)
-		imap.login(EMAIL_ACCOUNT, EMAIL_PASSWORD)
-		
-		# Search both inbox and spam if needed
-		imap.select("INBOX")
-		
-		# Search common bounce indicators
-		# mailer-daemon, postmaster, or common bounce subjects
-		search_criterias = '(FROM "Mail Delivery System")'
-		if '@gmail' in username_:
-			search_criterias = '(FROM "Mail Delivery Subsystem")'
-		elif '@yandex.com' in username_:
-			search_criterias = '(FROM "mailer-daemon@yandex.ru")'
-		
-		result, data = imap.search(None, search_criterias)
-		if result != "OK":
-			print("No messages found.")
-			imap.logout()
-			exit()
-		
-		msg_ids = data[0].split()
-		print(f"Found {len(msg_ids)} possible bounces to {EMAIL_ACCOUNT}.")
-		
-		rows = []
-		for msg_id in msg_ids:
-			result, msg_data = imap.fetch(msg_id, "(RFC822)")
-			raw_email = msg_data[0][1]
-			msg = email.message_from_bytes(raw_email)
-			mm = re.search(r"Final-Recipient:\s*[^;]+;\s*([^\s]+)", str(msg), re.I)
-			To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
-			To = To.replace(" ", "")
-			reason_code_1 = "action not taken: mailbox unavailable"
-			reason_code_4 = "mailbox not found"
-			reason_code_2 = "554-IP address is block listed"
-			reason_code_3 = "all hosts for 'web.de' have been failing for a long time (and retry time not reached)"
-			rc_1 = re.search(reason_code_1, str(msg), re.I)
-			rc_4 = re.search(reason_code_4, str(msg), re.I)
-			rc_2 = re.search(reason_code_2, str(msg), re.I)
-			rc_3 = re.search(reason_code_3, str(msg), re.I)
-			print("rc_1: ", rc_1)
-			print("rc_4: ", rc_4)
-			if rc_1 is not None or rc_4 is not None:
-				print("bounced To: ", To)
-				insert_email_to_supabase(To)
-			elif rc_2 is not None or rc_3 is not None:
-				"""
-				result_1 = supabase.rpc(
-					"update_reason",
-					{"uid": smtp['id']}
-				).execute()
-				"""
-				print("blacklisted To: ", To)
-				response_data_ = supabase.table('sprint_host_smtps').update({"ready": 0, "reason": "blacklisted"}).eq("id", smtp_id).execute()
-			#imap.store(msg_id, '+FLAGS', '\\Deleted')
-		#imap.expunge()
+	#try:
+	# === CONNECT ===
+	imap = imaplib.IMAP4_SSL(IMAP_SERVER)
+	imap.login(EMAIL_ACCOUNT, EMAIL_PASSWORD)
+	
+	# Search both inbox and spam if needed
+	imap.select("INBOX")
+	
+	# Search common bounce indicators
+	# mailer-daemon, postmaster, or common bounce subjects
+	search_criterias = '(FROM "Mail Delivery System")'
+	if '@gmail' in username_:
+		search_criterias = '(FROM "Mail Delivery Subsystem")'
+	elif '@yandex.com' in username_:
+		search_criterias = '(FROM "mailer-daemon@yandex.ru")'
+	
+	result, data = imap.search(None, search_criterias)
+	if result != "OK":
+		print("No messages found.")
 		imap.logout()
+		exit()
+	
+	msg_ids = data[0].split()
+	print(f"Found {len(msg_ids)} possible bounces to {EMAIL_ACCOUNT}.")
+	
+	rows = []
+	for msg_id in msg_ids:
+		result, msg_data = imap.fetch(msg_id, "(RFC822)")
+		raw_email = msg_data[0][1]
+		msg = email.message_from_bytes(raw_email)
+		mm = re.search(r"Final-Recipient:\s*[^;]+;\s*([^\s]+)", str(msg), re.I)
+		To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
+		To = To.replace(" ", "")
+		reason_code_1 = "action not taken: mailbox unavailable"
+		reason_code_4 = "mailbox not found"
+		reason_code_2 = "554-IP address is block listed"
+		reason_code_3 = "all hosts for 'web.de' have been failing for a long time (and retry time not reached)"
+		rc_1 = re.search(reason_code_1, str(msg), re.I)
+		rc_4 = re.search(reason_code_4, str(msg), re.I)
+		rc_2 = re.search(reason_code_2, str(msg), re.I)
+		rc_3 = re.search(reason_code_3, str(msg), re.I)
+		print("rc_1: ", rc_1)
+		print("rc_4: ", rc_4)
+		if rc_1 is not None or rc_4 is not None:
+			print("bounced To: ", To)
+			insert_email_to_supabase(To)
+		elif rc_2 is not None or rc_3 is not None:
+			"""
+			result_1 = supabase.rpc(
+				"update_reason",
+				{"uid": smtp['id']}
+			).execute()
+			"""
+			print("blacklisted To: ", To)
+			response_data_ = supabase.table('sprint_host_smtps').update({"ready": 0, "reason": "blacklisted"}).eq("id", smtp_id).execute()
+		#imap.store(msg_id, '+FLAGS', '\\Deleted')
+	#imap.expunge()
+	imap.logout()
+	"""
 	except:
 		pass
+	"""
 
 bcl = True
 nb_send = 0
