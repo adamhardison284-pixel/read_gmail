@@ -78,7 +78,7 @@ def check_imap(smtp_id, imap_, username_, pass_):
 				"""
 				print("blacklisted To: ", To)
 				response_data_ = supabase.table('sprint_host_smtps').update({"ready": 0, "reason": "blacklisted"}).eq("id", smtp_id).execute()
-			#imap.store(msg_id, '+FLAGS', '\\Deleted')
+			imap.store(msg_id, '+FLAGS', '\\Deleted')
 		imap.expunge()
 		imap.logout()
 	except:
@@ -132,7 +132,7 @@ response = supabase.table("sprint_host_smtps").select("*").execute()
 smtps = response.data
 
 subject = "Deine Chance, etwas wirklich Großes zu gewinnen!"
-table_name = "yahoo_de"
+table_name = "yahoo_de_duplicate"
 of_id = "8";
 txt_msg = ""
 msg = """
@@ -176,13 +176,6 @@ msg = """
 					<table cellpadding="0" cellspacing="0" border="0">
 					  <tr>
 						<td width="600" align="center" valign="top" style="background-color: #ffffff; box-shadow: 1px 1px 10px 0px rgba(25, 25, 25, 0.15);">
-			
-						<table width="100%" cellpadding="0" cellspacing="0" border="0" >
-									  <tr>
-										<td align="center" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:normal; line-height:22px; letter-spacing:0px; color:#414141; min-height:20px; mso-line-height-rule: exactly; padding: 20px 25px;"> Hallo
-										</td>
-									  </tr>
-									</table>
 							<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #151515;">
 									  <tr>
 										<td align="center" valign="middle" style="font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:normal; line-height:22px; letter-spacing:0px; color:#ffffff;  min-height:20px; mso-line-height-rule: exactly; padding: 20px 25px;"><strong>Wir gratulieren Ihnen recht herzlich!</strong>
@@ -347,30 +340,29 @@ msg = """
 		</html>
 """
 
-#for smtp in smtps:
-for x in range(1):
+#for x in range(1):
+for smtp in smtps:
 	bcl = True
 	nb_send = 0
-	smtp = smtps[x]
+	#smtp = smtps[x]
 	if smtp['ready'] == True:
-		receiver_email = "kamlal.fahmi@yahoo.com"
+		#receiver_email = "kamlal.fahmi@yahoo.com"
 		sender_email = smtp['username']
 		password = smtp['pass']
-		#while bcl == True:
-		for y in range(1):
-			"""
+		#for y in range(1):
+		while bcl == True:
 			response_1 = supabase.rpc(
 				"get_one_email_and_insert",
 				{"p_table": table_name, "p_offer_id": of_id}
 			).execute()
 			print('response_1.data: ', response_1.data[0]['email'])
 			receiver_email = response_1.data[0]['email']
-			"""
+			
 			print('receiver_email: ', receiver_email)
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
-		time.sleep(20)
+		time.sleep(60)
 		check_imap(smtp['id'], smtp['imap'], smtp['username'], smtp['pass'])
 
 
