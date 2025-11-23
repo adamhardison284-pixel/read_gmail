@@ -67,8 +67,8 @@ def check_imap(smtp_id, imap_, username_, pass_):
 			print("rc_1: ", rc_1)
 			print("rc_4: ", rc_4)
 			if rc_1 is not None or rc_4 is not None:
-				insert_email_to_supabase(To)
 				print("bounced To: ", To)
+				insert_email_to_supabase(To)
 			elif rc_2 is not None or rc_3 is not None:
 				"""
 				result_1 = supabase.rpc(
