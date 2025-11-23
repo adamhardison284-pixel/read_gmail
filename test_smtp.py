@@ -351,7 +351,7 @@ for x in range(1):
 	nb_send = 0
 	smtp = smtps[x]
 	if smtp['ready'] == True:
-		receiver_email = "kamlal.fahmi@yahoo.com"
+		receiver_email = "kamgvhlal.fahmi@yahoo.com"
 		sender_email = smtp['username']
 		password = smtp['pass']
 		#while bcl == True:
