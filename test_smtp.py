@@ -19,11 +19,11 @@ def insert_email_to_supabase(p_email):
     ).execute()
 
 def check_imap(smtp_id, imap_, username_, pass_):
-    smtp_id = imap_
-    IMAP_SERVER = imap_
-    EMAIL_ACCOUNT = username_
-    EMAIL_PASSWORD = pass_
-
+	smtp_id = imap_
+	IMAP_SERVER = imap_
+	EMAIL_ACCOUNT = username_
+	EMAIL_PASSWORD = pass_
+	
 	try:
 		# === CONNECT ===
 		imap = imaplib.IMAP4_SSL(IMAP_SERVER)
