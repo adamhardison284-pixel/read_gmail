@@ -64,6 +64,8 @@ def check_imap(smtp_id, imap_, username_, pass_):
 			rc_4 = re.search(reason_code_4, str(msg), re.I)
 			rc_2 = re.search(reason_code_2, str(msg), re.I)
 			rc_3 = re.search(reason_code_3, str(msg), re.I)
+			print("rc_1: ", rc_1)
+			print("rc_4: ", rc_4)
 			if rc_1 or rc_4:
 				insert_email_to_supabase(To)
 				print("bounced To: ", To)
