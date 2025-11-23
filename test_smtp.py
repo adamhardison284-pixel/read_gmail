@@ -135,7 +135,6 @@ msg = """
 #for smtp in smtps:
 for x in range(1):
 	bcl = True
-	global nb_send
 	nb_send = 0
 	smtp = smtps[x]
 	if smtp['ready'] == True:
