@@ -66,10 +66,10 @@ def check_imap(smtp_id, imap_, username_, pass_):
 			rc_3 = re.search(reason_code_3, str(msg), re.I)
 			print("rc_1: ", rc_1)
 			print("rc_4: ", rc_4)
-			if rc_1 or rc_4:
+			if rc_1 is not None or rc_4 is not None:
 				insert_email_to_supabase(To)
 				print("bounced To: ", To)
-			elif rc_2 or rc_3:
+			elif rc_2 is not None or rc_3 is not None::
 				"""
 				result_1 = supabase.rpc(
 					"update_reason",
