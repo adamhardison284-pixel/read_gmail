@@ -131,9 +131,9 @@ supabase: Client = create_client(url, key)
 response = supabase.table("sprint_host_smtps").select("*").execute()
 smtps = response.data
 
-subject = "🎁 Gratis-Produkte sichern – Uhren, Deko, Schuhe & mehr!"
+subject = "Deine Chance, etwas wirklich Großes zu gewinnen!"
 table_name = "yahoo_de"
-of_id = "6";
+of_id = "8";
 txt_msg = ""
 msg = """
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -353,7 +353,7 @@ for x in range(1):
 	nb_send = 0
 	smtp = smtps[x]
 	if smtp['ready'] == True:
-		receiver_email = "kamgszvhlal.fahmi@yahoo.com"
+		receiver_email = "kamlal.fahmi@yahoo.com"
 		sender_email = smtp['username']
 		password = smtp['pass']
 		#while bcl == True:
