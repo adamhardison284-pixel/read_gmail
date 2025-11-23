@@ -3,6 +3,7 @@ import email
 import re
 import csv
 import os
+import time
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -33,9 +34,9 @@ def check_imap(smtp_id, imap_, username_, pass_):
 		# Search common bounce indicators
 		# mailer-daemon, postmaster, or common bounce subjects
 		search_criterias = '(FROM "Mail Delivery System")'
-		if '@gmail' in smtp['username']:
+		if '@gmail' in username_:
 			search_criterias = '(FROM "Mail Delivery Subsystem")'
-		elif '@yandex.com' in smtp['username']:
+		elif '@yandex.com' in username_:
 			search_criterias = '(FROM "mailer-daemon@yandex.ru")'
 		
 		result, data = imap.search(None, search_criterias)
@@ -55,7 +56,6 @@ def check_imap(smtp_id, imap_, username_, pass_):
 			mm = re.search(r"Final-Recipient:\s*[^;]+;\s*([^\s]+)", str(msg), re.I)
 			To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
 			To = To.replace(" ", "")
-			print("To: ", To)
 			reason_code_1 = "action not taken: mailbox unavailable"
 			reason_code_2 = "554-IP address is block listed"
 			reason_code_3 = "all hosts for 'web.de' have been failing for a long time (and retry time not reached)"
@@ -64,6 +64,7 @@ def check_imap(smtp_id, imap_, username_, pass_):
 			rc_3 = re.search(reason_code_3, str(msg), re.I)
 			if rc_1:
 				insert_email_to_supabase(To)
+				print("bounced To: ", To)
 			elif rc_2 or rc_3:
 				"""
 				result_1 = supabase.rpc(
@@ -71,6 +72,7 @@ def check_imap(smtp_id, imap_, username_, pass_):
 					{"uid": smtp['id']}
 				).execute()
 				"""
+				print("blacklisted To: ", To)
 				response_data_ = supabase.table('sprint_host_smtps').update({"ready": 0, "reason": "blacklisted"}).eq("id", smtp_id).execute()
 			imap.store(msg_id, '+FLAGS', '\\Deleted')
 		imap.expunge()
@@ -138,11 +140,11 @@ for x in range(1):
 	nb_send = 0
 	smtp = smtps[x]
 	if smtp['ready'] == True:
-		receiver_email = "zhoridlono@web.de"
+		receiver_email = "kasmlsal.fahmi@yahoo.com"
 		sender_email = smtp['username']
 		password = smtp['pass']
 		#while bcl == True:
-		for y in range(2):
+		for y in range(1):
 			"""
 			response_1 = supabase.rpc(
 				"get_one_email_and_insert",
@@ -150,15 +152,16 @@ for x in range(1):
 			).execute()
 			print('response_1.data: ', response_1.data[0]['email'])
 			receiver_email = response_1.data[0]['email']
-			"""
 			if y == 0:
 				receiver_email = "kamlal.fahmi@yahoo.com"
 			elif y == 1:
-				receiver_email = "kamlal.fahmi@yahoo.com"
+				receiver_email = "kasmlsal.fahmi@yahoo.com"
+			"""
 			print('receiver_email: ', receiver_email)
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
+		time.sleep(60)
 		check_imap(smtp['id'], smtp['imap'], smtp['username'], smtp['pass'])
 
 
