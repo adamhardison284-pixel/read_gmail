@@ -10,8 +10,6 @@ from supabase import create_client, Client
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-bcl = True
-nb_send = 0
 def insert_email_to_supabase(p_email):
     result = supabase.rpc(
         "insert_bounced_email",
@@ -79,9 +77,11 @@ def check_imap(smtp_id, imap_, username_, pass_):
 		imap.logout()
 	except:
 		pass
-	
+
+bcl = True
+nb_send = 0
 def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host):
-		#try:
+	try:
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
 		"""
@@ -101,6 +101,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 			server.starttls()
 			server.login(sender_email, password)
 			server.sendmail(sender_email, receiver_email, msg.as_string())
+			global nb_send
 			nb_send = nb_send + 1
 			response_data_3 = supabase.table('sprint_host_smtps').update({"nb_send": nb_send}).eq("id", smtp_id).execute()
 			"""
@@ -108,14 +109,13 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 			"""
 			print('yes sent')
 			print('sender: ', sender_email)
-		"""	
-		except:
+		
+	except:
 		offer_id = int(offer_id)
 		bcl = False
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
 		response_data_ = supabase.table('sprint_host_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
 		print('not sent')
-		"""
 
 url = "https://jdnmanfimzvbilacjgcj.supabase.co"
 key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
@@ -135,6 +135,7 @@ msg = """
 #for smtp in smtps:
 for x in range(1):
 	bcl = True
+	global nb_send
 	nb_send = 0
 	smtp = smtps[x]
 	if smtp['ready'] == True:
