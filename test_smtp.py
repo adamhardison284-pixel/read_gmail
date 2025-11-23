@@ -76,8 +76,8 @@ def check_imap(smtp_id, imap_, username_, pass_):
 				"""
 				print("blacklisted To: ", To)
 				response_data_ = supabase.table('sprint_host_smtps').update({"ready": 0, "reason": "blacklisted"}).eq("id", smtp_id).execute()
-			imap.store(msg_id, '+FLAGS', '\\Deleted')
-		imap.expunge()
+			#imap.store(msg_id, '+FLAGS', '\\Deleted')
+		#imap.expunge()
 		imap.logout()
 	except:
 		pass
@@ -368,7 +368,7 @@ for x in range(1):
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
 			send_email(subject, sender_email, password, receiver_email, txt_msg, msg, of_id, smtp['id'], smtp['host'])
-		time.sleep(60)
+		time.sleep(20)
 		check_imap(smtp['id'], smtp['imap'], smtp['username'], smtp['pass'])
 
 
