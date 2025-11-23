@@ -25,36 +25,36 @@ def check_imap(smtp_id, imap_, username_, pass_):
     EMAIL_PASSWORD = pass_
 
 	try:
-        # === CONNECT ===
-        imap = imaplib.IMAP4_SSL(IMAP_SERVER)
-        imap.login(EMAIL_ACCOUNT, EMAIL_PASSWORD)
-        
-        # Search both inbox and spam if needed
-        imap.select("INBOX")
-        
-        # Search common bounce indicators
-        # mailer-daemon, postmaster, or common bounce subjects
-        search_criterias = '(FROM "Mail Delivery System")'
-        if '@gmail' in smtp['username']:
-            search_criterias = '(FROM "Mail Delivery Subsystem")'
-        elif '@yandex.com' in smtp['username']:
-            search_criterias = '(FROM "mailer-daemon@yandex.ru")'
-        
-        result, data = imap.search(None, search_criterias)
-        if result != "OK":
-            print("No messages found.")
-            imap.logout()
-            exit()
-        
-        msg_ids = data[0].split()
-        print(f"Found {len(msg_ids)} possible bounces to {EMAIL_ACCOUNT}.")
-        
-        rows = []
-        for msg_id in msg_ids:
-            result, msg_data = imap.fetch(msg_id, "(RFC822)")
-            raw_email = msg_data[0][1]
-            msg = email.message_from_bytes(raw_email)
-            mm = re.search(r"Final-Recipient:\s*[^;]+;\s*([^\s]+)", str(msg), re.I)
+		# === CONNECT ===
+		imap = imaplib.IMAP4_SSL(IMAP_SERVER)
+		imap.login(EMAIL_ACCOUNT, EMAIL_PASSWORD)
+		
+		# Search both inbox and spam if needed
+		imap.select("INBOX")
+		
+		# Search common bounce indicators
+		# mailer-daemon, postmaster, or common bounce subjects
+		search_criterias = '(FROM "Mail Delivery System")'
+		if '@gmail' in smtp['username']:
+			search_criterias = '(FROM "Mail Delivery Subsystem")'
+		elif '@yandex.com' in smtp['username']:
+			search_criterias = '(FROM "mailer-daemon@yandex.ru")'
+		
+		result, data = imap.search(None, search_criterias)
+		if result != "OK":
+			print("No messages found.")
+			imap.logout()
+			exit()
+		
+		msg_ids = data[0].split()
+		print(f"Found {len(msg_ids)} possible bounces to {EMAIL_ACCOUNT}.")
+		
+		rows = []
+		for msg_id in msg_ids:
+			result, msg_data = imap.fetch(msg_id, "(RFC822)")
+			raw_email = msg_data[0][1]
+			msg = email.message_from_bytes(raw_email)
+			mm = re.search(r"Final-Recipient:\s*[^;]+;\s*([^\s]+)", str(msg), re.I)
 			To = str(mm.group()).replace("Final-Recipient: rfc822;", "")
 			To = To.replace(" ", "")
 			print("To: ", To)
@@ -75,10 +75,10 @@ def check_imap(smtp_id, imap_, username_, pass_):
 				"""
 				response_data_ = supabase.table('sprint_host_smtps').update({"ready": 0, "reason": "blacklisted"}).eq("id", smtp_id).execute()
 			imap.store(msg_id, '+FLAGS', '\\Deleted')
-        imap.expunge()
-        imap.logout()
-    except:
-        pass
+		imap.expunge()
+		imap.logout()
+	except:
+		pass
 	
 def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host):
 	try:
