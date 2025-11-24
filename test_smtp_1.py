@@ -136,6 +136,7 @@ response = (
     supabase
         .table("sprint_host_smtps")
         .select("*")
+		.eq("ready", 1)
         .order("id", desc=False)  # ASC
         .execute()
 )
