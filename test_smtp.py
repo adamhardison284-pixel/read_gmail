@@ -16,7 +16,10 @@ def insert_email_to_supabase(p_email):
         "insert_bounced_email",
         {"p_email": p_email}
     ).execute()
-
+	
+def has_special_char(username):
+    return bool(re.search(r"[^A-Za-z0-9]", username))
+	
 def check_imap(smtp_id, imap_, username_, pass_):
 	smtp_id = imap_
 	IMAP_SERVER = imap_
@@ -128,7 +131,14 @@ url = "https://jdnmanfimzvbilacjgcj.supabase.co"
 key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
 supabase: Client = create_client(url, key)
 
-response = supabase.table("sprint_host_smtps").select("*").execute()
+#response = supabase.table("sprint_host_smtps").select("*").execute()
+response = (
+    supabase
+        .table("sprint_host_smtps")
+        .select("*")
+        .order("id", desc=False)  # ASC
+        .execute()
+)
 smtps = response.data
 
 subject = "Deine Chance, etwas wirklich Großes zu gewinnen!"
@@ -346,17 +356,26 @@ for smtp in smtps:
 	nb_send = 0
 	#smtp = smtps[x]
 	if smtp['ready'] == True:
-		#receiver_email = "kamlal.fahmi@yahoo.com"
+		receiver_email = "kamlal.fahmi@yahoo.com"
 		sender_email = smtp['username']
 		password = smtp['pass']
 		#for y in range(1):
 		while bcl == True:
-			response_1 = supabase.rpc(
-				"get_one_email_and_insert",
-				{"p_table": table_name, "p_offer_id": of_id}
-			).execute()
-			print('response_1.data: ', response_1.data[0]['email'])
-			receiver_email = response_1.data[0]['email']
+			user_bool = True
+			while user_bool == True:
+				response_1 = supabase.rpc(
+					"get_one_email_and_insert",
+					{"p_table": table_name, "p_offer_id": of_id}
+				).execute()
+				if response_1.data[0]['email'].count("@") == 1:
+					if not has_special_char(response_1.data[0]['email'])
+						print('response_1.data: ', response_1.data[0]['email'])
+						receiver_email = response_1.data[0]['email']
+						user_bool = False
+					else:
+						response_ = supabase.table("drops").delete().eq("email", response_1.data[0]['email']).eq("offer_id", of_id).execute()
+				else:
+					response_ = supabase.table("drops").delete().eq("email", response_1.data[0]['email']).eq("offer_id", of_id).execute()
 			
 			print('receiver_email: ', receiver_email)
 			msg = msg.replace('[em]', receiver_email)
