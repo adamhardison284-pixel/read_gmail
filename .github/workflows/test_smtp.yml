@@ -1,9 +1,10 @@
 name: Test Smtp Script
 
 on:
-  workflow_dispatch:       # allows manual run
-  schedule:
-    - cron: "8 * * 6 *"  # optional: runs every 2 minutes
+  workflow_run:
+    workflows: ["Test Smtp_1 Script"]  # Name must match exactly
+    types:
+      - completed
 
 jobs:
   send-gmail:
