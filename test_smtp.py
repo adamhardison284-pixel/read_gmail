@@ -90,7 +90,7 @@ def check_imap(smtp_id, imap_, username_, pass_):
 bcl = True
 nb_send = 0
 def send_email(subject, sender_email, password, receiver_email, text, html, offer_id, smtp_id, smtp_host):
-	try:
+		#try:
 		msg = MIMEMultipart("alternative")
 		msg["Subject"] = subject
 		"""
@@ -118,14 +118,15 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 			"""
 			print('yes sent')
 			print('sender: ', sender_email)
-		
-	except:
+		"""
+		#except:
 		offer_id = int(offer_id)
 		global bcl
 		bcl = False
 		response_ = supabase.table("drops").delete().eq("email", receiver_email).eq("offer_id", offer_id).execute()
 		response_data_ = supabase.table('sprint_host_smtps').update({"ready": 0}).eq("id", smtp_id).execute()
 		print('not sent')
+		"""
 
 url = "https://jdnmanfimzvbilacjgcj.supabase.co"
 key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
