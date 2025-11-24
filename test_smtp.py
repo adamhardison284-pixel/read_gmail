@@ -368,7 +368,8 @@ for x in range(1):
 					{"p_table": table_name, "p_offer_id": of_id}
 				).execute()
 				if response_1.data[0]['email'].count("@") == 1:
-					if not has_special_char(response_1.data[0]['email']):
+					emqq = response_1.data[0]['email'].split('@')[0]
+					if not has_special_char(emqq):
 						print('response_1.data: ', response_1.data[0]['email'])
 						receiver_email = response_1.data[0]['email']
 						user_bool = False
