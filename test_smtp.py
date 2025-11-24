@@ -373,9 +373,10 @@ for smtp in smtps:
 						receiver_email = response_1.data[0]['email']
 						user_bool = False
 					else:
-						response_ = supabase.table("drops").delete().eq("email", response_1.data[0]['email']).eq("offer_id", of_id).execute()
+						#response_ = supabase.table("drops").delete().eq("email", response_1.data[0]['email']).eq("offer_id", of_id).execute()
 				else:
-					response_ = supabase.table("drops").delete().eq("email", response_1.data[0]['email']).eq("offer_id", of_id).execute()
+					#response_ = supabase.table("drops").delete().eq("email", response_1.data[0]['email']).eq("offer_id", of_id).execute()
+					pass
 			
 			print('receiver_email: ', receiver_email)
 			msg = msg.replace('[em]', receiver_email)
