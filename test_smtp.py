@@ -350,17 +350,17 @@ msg = """
 		</html>
 """
 
-#for x in range(1):
-for smtp in smtps:
+#for smtp in smtps:
+for x in range(1):
 	bcl = True
 	nb_send = 0
-	#smtp = smtps[x]
+	smtp = smtps[x]
 	if smtp['ready'] == True:
 		receiver_email = "kamlal.fahmi@yahoo.com"
 		sender_email = smtp['username']
 		password = smtp['pass']
-		#for y in range(1):
-		while bcl == True:
+		#while bcl == True:
+		for y in range(10):
 			user_bool = True
 			while user_bool == True:
 				response_1 = supabase.rpc(
