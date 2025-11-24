@@ -131,11 +131,12 @@ url = "https://jdnmanfimzvbilacjgcj.supabase.co"
 key = "sb_secret_eVYWCtpPzmFsbJryaEug0A_EYBBcCII"
 supabase: Client = create_client(url, key)
 
-#response = supabase.table("sprint_host_smtps").select("*").execute()
+#response = supabase.table("sprint_host_smtps").select("*").eq("ready", 1).execute()
 response = (
     supabase
         .table("sprint_host_smtps")
         .select("*")
+		.eq("ready", 1)
         .order("id", desc=False)  # ASC
         .execute()
 )
