@@ -1,6 +1,7 @@
 name: Test Smtp_1 Script
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Test Smtp Script"]  # Name must match exactly
     types:
