@@ -374,6 +374,7 @@ for smtp in smtps:
 						user_bool = False
 					else:
 						#response_ = supabase.table("drops").delete().eq("email", response_1.data[0]['email']).eq("offer_id", of_id).execute()
+						pass
 				else:
 					#response_ = supabase.table("drops").delete().eq("email", response_1.data[0]['email']).eq("offer_id", of_id).execute()
 					pass
