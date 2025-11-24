@@ -32,7 +32,7 @@ jobs:
           pip install --upgrade pip
           pip install supabase
 
-      - name: Run test_smtp.py
+      - name: Run test_smtp_1.py
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
