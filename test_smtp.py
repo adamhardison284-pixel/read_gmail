@@ -354,7 +354,7 @@ msg = """
 for smtp in smtps:
 	bcl = True
 	nb_send = 0
-	smtp = smtps[x]
+	#smtp = smtps[x]
 	if smtp['ready'] == True:
 		receiver_email = "kamlal.fahmi@yahoo.com"
 		sender_email = smtp['username']
