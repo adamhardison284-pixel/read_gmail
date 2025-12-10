@@ -142,9 +142,11 @@ response = (
 )
 smtps = response.data
 
-subject = "Deine Chance, etwas wirklich Großes zu gewinnen!"
+of_id = "7";
+response_offer = supabase.table("offers").select("*").eq("id", int(of_id)).execute()
+subject = response_offer.data[0]['subject']
+#subject = "Deine Chance, etwas wirklich Großes zu gewinnen!"
 table_name = "yahoo_de_duplicate"
-of_id = "8";
 txt_msg = ""
 msg = """
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -351,18 +353,21 @@ msg = """
 		</html>
 """
 
-#for x in range(1):
-for smtp in smtps:
+msg = response_offer.data[0]['letter']
+for x in range(1):
+	#for smtp in smtps:
 	bcl = True
 	nb_send = 0
-	#smtp = smtps[x]
+	smtp = smtps[x]
 	if smtp['ready'] == True:
 		receiver_email = "kamlal.fahmi@yahoo.com"
+		receiver_email = "adamoyler2705cc@web.de"
 		sender_email = smtp['username']
 		password = smtp['pass']
-		#for y in range(10):
-		while bcl == True:
+		for y in range(1):
+			#while bcl == True:
 			user_bool = True
+			"""
 			while user_bool == True:
 				response_1 = supabase.rpc(
 					"get_one_email_and_insert",
@@ -380,7 +385,7 @@ for smtp in smtps:
 				else:
 					#response_ = supabase.table("drops").delete().eq("email", response_1.data[0]['email']).eq("offer_id", of_id).execute()
 					pass
-			
+			"""
 			print('receiver_email: ', receiver_email)
 			msg = msg.replace('[em]', receiver_email)
 			msg = msg.replace('[of_id]', of_id)
