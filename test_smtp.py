@@ -100,7 +100,7 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		"""
 		msg["From"] = 'Uberraschungsteam <' + sender_email + '>'
 		msg["To"] = receiver_email
-		#msg["Reply-To"] = "rubybaker552@meetoffer.online"
+		msg["Reply-To"] = "rubybaker552@meetoffer.online"
 		# Attach both versions
 		msg.attach(MIMEText(text, "plain"))
 		msg.attach(MIMEText(html, "html"))
