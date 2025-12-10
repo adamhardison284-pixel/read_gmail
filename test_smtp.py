@@ -98,9 +98,9 @@ def send_email(subject, sender_email, password, receiver_email, text, html, offe
 		msg["From"] = 'Das Überraschungsteam<deals@amazon.com>'
 		msg["From"] = 'Uberraschungsteam <surprise@amazon.com>'
 		"""
-		msg["From"] = 'Das Uberraschungsteam <' + sender_email + '>'
+		msg["From"] = 'Uberraschungsteam <' + sender_email + '>'
 		msg["To"] = receiver_email
-		
+		msg["Reply-To"] = "rubybaker552@meetoffer.online"
 		# Attach both versions
 		msg.attach(MIMEText(text, "plain"))
 		msg.attach(MIMEText(html, "html"))
